@@ -2100,7 +2100,25 @@ interface NinjaProps {
   playSfx: (type: 'slash' | 'miss' | 'win' | 'click' | 'correct') => void;
 }
 
+interface FloatingScore {
+  x: number;
+  y: number;
+  text: string;
+  meaning: string;
+  pts: number;
+  life: number;
+}
+
+function distToSegment(px: number, py: number, x1: number, y1: number, x2: number, y2: number) {
+  const l2 = (x2 - x1) ** 2 + (y2 - y1) ** 2;
+  if (l2 === 0) return Math.hypot(px - x1, py - y1);
+  let t = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / l2;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(px - (x1 + t * (x2 - x1)), py - (y1 + t * (y2 - y1)));
+}
+
 function NinjaGame({ speakText, playSfx }: NinjaProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [score, setScore] = useState<number>(0);
   const [lives, setLives] = useState<number>(3);
@@ -2123,11 +2141,15 @@ function NinjaGame({ speakText, playSfx }: NinjaProps) {
 
   const gameStateRef = useRef({
     running: false,
+    width: 600,
+    height: 480,
+    dpr: 1,
     score: 0,
     lives: 3,
     fruits: [] as Array<{
       text: string;
       pinyin: string;
+      meaning: string;
       radius: number;
       x: number;
       y: number;
@@ -2162,6 +2184,7 @@ function NinjaGame({ speakText, playSfx }: NinjaProps) {
       gravity: number;
       size: number;
     }>,
+    floatingScores: [] as FloatingScore[],
     trail: [] as Array<{ x: number; y: number; life: number }>,
     spawnTimer: 0,
     lastTime: 0,
@@ -2177,8 +2200,10 @@ function NinjaGame({ speakText, playSfx }: NinjaProps) {
     s.fruits = [];
     s.halves = [];
     s.particles = [];
+    s.floatingScores = [];
     s.trail = [];
     s.combo = 0;
+    s.spawnTimer = 400;
     s.lastTime = performance.now();
     setScore(0);
     setLives(3);
@@ -2187,6 +2212,34 @@ function NinjaGame({ speakText, playSfx }: NinjaProps) {
     isPausedRef.current = false;
     setCombo(0);
   };
+
+  // Resize canvas to match container with DPR support
+  const updateCanvasSize = useCallback(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const rect = container.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const logicalW = Math.max(300, Math.floor(rect.width));
+    const logicalH = Math.max(420, Math.min(540, Math.floor(window.innerHeight * 0.55)));
+
+    canvas.width = Math.floor(logicalW * dpr);
+    canvas.height = Math.floor(logicalH * dpr);
+    canvas.style.width = `${logicalW}px`;
+    canvas.style.height = `${logicalH}px`;
+
+    const s = gameStateRef.current;
+    s.width = logicalW;
+    s.height = logicalH;
+    s.dpr = dpr;
+  }, []);
+
+  useEffect(() => {
+    updateCanvasSize();
+    window.addEventListener('resize', updateCanvasSize);
+    return () => window.removeEventListener('resize', updateCanvasSize);
+  }, [updateCanvasSize]);
 
   useEffect(() => {
     resetGame();

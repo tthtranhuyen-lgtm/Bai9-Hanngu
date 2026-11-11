@@ -140,8 +140,15 @@ const DIALOGUE: DialogueLine[] = [
 ];
 
 /* =========================================================
-   TEXTBOOK AUDIO SYNCHRONIZATION (09-1: BÀI KHÓA & 09-2: TỪ VỰNG)
-   ========================================================= */
+// Helper tương thích tự động đường dẫn âm thanh tĩnh trên GitHub Pages và mọi thư mục con
+const toAssetUrl = (path: string): string => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path;
+  const base = import.meta.env.BASE_URL || './';
+  const clean = path.replace(/^\//, '');
+  return base.endsWith('/') ? `${base}${clean}` : `${base}/${clean}`;
+};
+
 const DIALOGUE_AUDIO_FULL = '/audio/dialogue_full.mp3';
 const VOCAB_AUDIO_FULL = '/audio/vocab_full.mp3';
 
@@ -632,7 +639,7 @@ export default function App() {
     setActiveSpeakingWordIdx(idx);
 
     const audioUrl = VOCAB_AUDIO_FILES[idx] || `/audio/vocab/word_${idx}.mp3`;
-    const audio = new Audio(audioUrl);
+    const audio = new Audio(toAssetUrl(audioUrl));
     audio.playbackRate = Math.max(0.5, Math.min(2.0, speechRate));
     currentAudioRef.current = audio;
 
@@ -659,7 +666,7 @@ export default function App() {
     setCurrentDlgHighlight(idx);
 
     const audioUrl = DIALOGUE_AUDIO_FILES[idx] || `/audio/dialogue/line_${idx}.mp3`;
-    const audio = new Audio(audioUrl);
+    const audio = new Audio(toAssetUrl(audioUrl));
     audio.playbackRate = Math.max(0.5, Math.min(2.0, speechRate));
     currentAudioRef.current = audio;
 
@@ -716,7 +723,7 @@ export default function App() {
 
     if (exampleUrl) {
       setActiveSpeakingText(rawText);
-      const audio = new Audio(exampleUrl);
+      const audio = new Audio(toAssetUrl(exampleUrl));
       audio.playbackRate = rate;
       currentAudioRef.current = audio;
       audio.onended = () => {
@@ -749,7 +756,7 @@ export default function App() {
       await new Promise<void>((resolve) => {
         if (playAllAbortRef.current) return resolve();
         const audioUrl = DIALOGUE_AUDIO_FILES[i] || `/audio/dialogue/line_${i}.mp3`;
-        const audio = new Audio(audioUrl);
+        const audio = new Audio(toAssetUrl(audioUrl));
         audio.playbackRate = speechRate;
         currentAudioRef.current = audio;
 
@@ -791,7 +798,7 @@ export default function App() {
       await new Promise<void>((resolve) => {
         if (playAllAbortRef.current) return resolve();
         const audioUrl = VOCAB_AUDIO_FILES[i] || `/audio/vocab/word_${i}.mp3`;
-        const audio = new Audio(audioUrl);
+        const audio = new Audio(toAssetUrl(audioUrl));
         audio.playbackRate = speechRate;
         currentAudioRef.current = audio;
 
@@ -826,7 +833,7 @@ export default function App() {
     playAllAbortRef.current = false;
 
     const url = type === 'dialogue' ? DIALOGUE_AUDIO_FULL : VOCAB_AUDIO_FULL;
-    const audio = new Audio(url);
+    const audio = new Audio(toAssetUrl(url));
     audio.playbackRate = speechRate;
     currentAudioRef.current = audio;
 

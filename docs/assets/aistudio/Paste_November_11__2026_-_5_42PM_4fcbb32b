@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bài 9 · 换钱 | Ôn tập tiếng Trung</title>
+<!-- Thư viện tạo animation nét vẽ -->
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+<style>
+/* ============ BASE ============ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans",Arial,sans-serif;
+  color:#3d3346;
+  background:linear-gradient(165deg,#fdf1f7 0%,#f4efff 35%,#eaf7f4 70%,#fef6ee 100%);
+  min-height:100vh;overflow-x:hidden;position:relative;
+}
+.bg-blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;z-index:0;}
+.b1{width:420px;height:420px;background:#ffd3e2;top:-150px;left:-130px;animation:float1 18s ease-in-out infinite;}
+.b2{width:380px;height:380px;background:#d9cbff;top:15%;right:-160px;animation:float2 22s ease-in-out infinite;}
+.b3{width:460px;height:460px;background:#c3f2e2;bottom:-220px;left:15%;animation:float1 26s ease-in-out infinite reverse;}
+.b4{width:280px;height:280px;background:#ffe6b8;bottom:8%;right:6%;opacity:.45;animation:float2 20s ease-in-out infinite;}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,40px) scale(1.08);}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-35px,30px) scale(1.06);}}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(#ffffffaa 1.3px,transparent 1.3px);
+  background-size:28px 28px;opacity:.7;
+}
+.wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:22px 16px 60px;}
+
+/* ============ HERO ============ */
+.hero{text-align:center;padding:14px 0 18px;}
+.hero-badge{
+  display:inline-block;padding:5px 16px;border-radius:999px;
+  background:linear-gradient(135deg,#ffb3c6,#c9b6ff);
+  color:#fff;font-weight:700;font-size:13px;letter-spacing:2px;
+  box-shadow:0 6px 16px rgba(201,182,255,.45);
+}
+.hero h1{
+  margin:12px 0 4px;font-size:clamp(30px,6vw,46px);letter-spacing:4px;
+  background:linear-gradient(135deg,#ff7fa3 0%,#a98bff 50%,#57c9b0 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-weight:800;text-shadow:0 2px 0 rgba(255,255,255,.6);
+}
+.hero-sub{margin:0;color:#8a7d95;font-size:14.5px;letter-spacing:.5px;}
+
+/* ============ TABS ============ */
+.tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 20px;}
+.tab{
+  border:none;cursor:pointer;font-family:inherit;font-size:14.5px;font-weight:700;
+  padding:10px 20px;border-radius:999px;color:#7a6b88;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 4px 14px rgba(160,140,190,.16);
+  transition:.25s;backdrop-filter:blur(8px);
+}
+.tab:hover{transform:translateY(-2px);color:#5d4d70;}
+.tab.active{
+  color:#fff;background:linear-gradient(135deg,#ff9dbb,#a98bff);
+  box-shadow:0 8px 22px rgba(169,139,255,.45);
+}
+.panel{display:none;animation:fadeUp .35s ease;}
+.panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* ============ VOCAB ============ */
+.toolbar{
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(10px);
+  border-radius:20px;padding:14px 18px;margin-bottom:18px;
+  box-shadow:0 8px 26px rgba(180,160,210,.16);
+}
+.search{
+  flex:1;min-width:200px;border:2px solid #f0e6f7;border-radius:14px;
+  padding:10px 16px;font-size:15px;font-family:inherit;outline:none;
+  background:#fff;color:#4a3f55;transition:.2s;
+}
+.search:focus{border-color:#c9b6ff;box-shadow:0 0 0 4px rgba(201,182,255,.2);}
+.speed-control{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#7a6b88;font-weight:600;}
+.speed-control input[type=range]{
+  -webkit-appearance:none;appearance:none;width:130px;height:6px;border-radius:99px;
+  background:linear-gradient(90deg,#ffb3c6,#c9b6ff);outline:none;
+}
+.speed-control input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:#fff;border:3px solid #a98bff;cursor:pointer;box-shadow:0 2px 8px rgba(169,139,255,.5);
+}
+.speed-control input[type=range]::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #a98bff;cursor:pointer;
+}
+#speedVal{min-width:42px;text-align:center;color:#a98bff;font-weight:800;}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:15px;}
+
+/* --- FLIP CARD --- */
+.vcard{
+  perspective:1100px;height:300px;cursor:pointer;
+  -webkit-user-select:none;user-select:none;
+}
+.vcard-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .62s cubic-bezier(.4,.2,.2,1);
+}
+.vcard.flipped .vcard-inner{transform:rotateY(180deg);}
+.vcard-face{
+  position:absolute;inset:0;border-radius:20px;padding:16px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:flex;flex-direction:column;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
+  border:2px solid rgba(255,255,255,.95);
+  box-shadow:0 8px 22px rgba(180,160,210,.17);
+  overflow:hidden;
+}
+.vcard-front::after{
+  content:'';position:absolute;top:-45%;right:-45%;width:90%;height:90%;
+  background:radial-gradient(circle,rgba(255,190,215,.4),transparent 70%);
+  pointer-events:none;
+}
+.vcard-back{
+  transform:rotateY(180deg);
+  background:linear-gradient(160deg,#fff8fc,#f4f0ff);
+  overflow-y:auto;overflow-x:hidden;
+  padding:13px 14px 14px;
+}
+.vcard-back::-webkit-scrollbar{width:5px;}
+.vcard-back::-webkit-scrollbar-thumb{background:#d9c9f5;border-radius:9px;}
+
+.vcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;position:relative;z-index:1;}
+.vcard-hanzi{
+  font-size:29px;font-weight:800;letter-spacing:2px;line-height:1.2;
+  background:linear-gradient(135deg,#ff7fa3,#9b7bff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.spk{
+  flex:none;border:none;cursor:pointer;width:33px;height:33px;border-radius:50%;
+  background:linear-gradient(135deg,#ffe3ee,#e6dcff);font-size:15px;
+  display:grid;place-items:center;transition:.2s;position:relative;z-index:2;
+}
+.spk:hover{transform:scale(1.15);background:linear-gradient(135deg,#ffc9dd,#d3c1ff);}
+.vcard-pinyin{margin-top:7px;font-size:15px;font-weight:700;color:#8b7bb8;letter-spacing:.4px;position:relative;z-index:1;}
+.vcard-mean{margin-top:5px;font-size:13.5px;color:#8d8298;line-height:1.45;position:relative;z-index:1;flex:1;}
+.vcard-hint{
+  font-size:11.5px;color:#c0aee0;font-weight:700;letter-spacing:.3px;
+  display:flex;align-items:center;gap:5px;margin-top:6px;position:relative;z-index:1;
+}
+.vcard-hint .dot{
+  width:6px;height:6px;border-radius:50%;background:#ffb3c6;
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(.8);}50%{opacity:1;transform:scale(1.25);}}
+
+.vcard-back-title{
+  font-size:11.5px;font-weight:800;color:#a98bff;letter-spacing:1.4px;
+  margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;
+}
+.ex-item{margin-bottom:9px;padding-left:9px;border-left:3px solid #ffd6e5;}
+.ex-item:last-child{margin-bottom:0;}
+.ex-cn{
+  font-size:13px;font-weight:700;color:#4a3f55;line-height:1.5;
+  cursor:pointer;transition:.15s;
+}
+.ex-cn:hover{color:#a98bff;}
+.ex-vn{font-size:11.5px;color:#9b90a8;line-height:1.45;margin-top:2px;font-style:italic;}
+
+/* ============ DIALOGUE ============ */
+.dialogue-container {
+  max-width: 860px; margin: 0 auto;
+  background: rgba(255,255,255,.85); backdrop-filter: blur(10px);
+  border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(180,160,210,.2);
+}
+.dlg-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;}
+.dlg-title { font-size: 20px; font-weight: 800; color: #5d4d70; }
+.dlg-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+.dlg-btn {
+  border: none; padding: 8px 16px; border-radius: 12px; font-weight: 700; cursor: pointer;
+  transition: .2s; display: flex; align-items: center; gap: 6px; font-family: inherit;
+}
+.btn-play { background: #e6dcff; color: #8a6bff; }
+.btn-play:hover { background: #d3c1ff; transform: translateY(-2px); }
+.btn-stop { background: #ff9dbb; color: #fff; }
+.btn-stop:hover { background: #ff7fa3; transform: translateY(-2px); }
+.dlg-line { display: flex; gap: 15px; margin-bottom: 16px; align-items: flex-start; transition: .3s; border-radius: 12px; padding: 10px;}
+.dlg-line.highlight { background: rgba(255, 227, 238, 0.5); }
+.dlg-avatar {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; flex: none; font-size: 14px;
+}
+.avatar-a { background: #ff9dbb; }
+.avatar-b { background: #a98bff; }
+.avatar-c { background: #7fdcc0; }
+.dlg-content { flex: 1; }
+.dlg-zh { font-size: 17px; font-weight: 700; color: #4a3f55; margin-bottom: 4px; cursor: pointer; display: inline-block;}
+.dlg-zh:hover { color: #a98bff; }
+.dlg-py { font-size: 14px; color: #a08fc4; font-weight: 600; margin-bottom: 4px; }
+.dlg-vn { font-size: 14px; color: #8d8298; font-style: italic; }
+
+/* ============ GRAMMAR ============ */
+.grammar-list { display: flex; flex-direction: column; gap: 18px; max-width: 860px; margin: 0 auto; }
+.grammar-card {
+  background: rgba(255,255,255,.88); backdrop-filter: blur(10px);
+  border-radius: 22px; padding: 20px 24px; box-shadow: 0 8px 26px rgba(180,160,210,.16);
+  border-top: 5px solid #a98bff;
+}
+.gr-title { font-size: 18px; font-weight: 800; color: #5d4d70; margin: 0 0 6px 0; }
+.gr-formula {
+  display: inline-block; background: #f3edff; color: #8a6bff;
+  padding: 4px 12px; border-radius: 8px; font-weight: 700; font-size: 15px;
+  margin-bottom: 10px; border: 1px dashed #c9b6ff;
+}
+.gr-desc { font-size: 14px; color: #7a6b88; margin-bottom: 16px; line-height: 1.5; }
+.gr-ex-list { display: flex; flex-direction: column; gap: 10px; }
+.gr-ex-item {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 12px 14px; background: #fdfafc; border-radius: 12px;
+  border: 1px solid #f0e6f7; transition: .2s;
+}
+.gr-ex-item:hover { border-color: #c9b6ff; background: #fff; }
+.gr-ex-content { flex: 1; }
+.gr-ex-zh { font-size: 16px; font-weight: 700; color: #4a3f55; margin-bottom: 3px; }
+.gr-ex-py { font-size: 13px; color: #a08fc4; margin-bottom: 3px; }
+.gr-ex-vn { font-size: 13px; color: #8d8298; font-style: italic; }
+.gr-spk {
+  flex: none; width: 32px; height: 32px; border-radius: 50%;
+  border: none; background: #e6dcff; color: #8a6bff; font-size: 16px;
+  cursor: pointer; display: grid; place-items: center; transition: .2s; margin-left: 12px;
+}
+.gr-spk:hover { background: #d3c1ff; transform: scale(1.1); }
+
+/* ============ WRITING ============ */
+.write-panel-container{display:flex;flex-direction:column;gap:20px;max-width:900px;margin:0 auto;}
+.word-select-card{width:100%;}
+.word-select-card select#charSelect{max-width:500px;}
+.write-wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;align-items:flex-start;}
+.write-stage{
+  position:relative;width:min(420px,88vw);aspect-ratio:1/1;flex:none;
+  border-radius:26px;overflow:hidden;background:rgba(255,255,255,.88);
+  box-shadow:0 12px 36px rgba(180,160,210,.22),inset 0 0 0 2px rgba(255,255,255,.9);
+  touch-action:none;
+}
+.grid-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+.hanzi-anim{position:absolute;inset:0;z-index:2;display:grid;place-items:center;pointer-events:none;}
+.trace-char{
+  position:absolute;inset:0;display:grid;place-items:center;z-index:2;
+  font-size:min(300px,64vw);font-weight:400;color:#f3e9f7;
+  user-select:none;pointer-events:none;line-height:1;font-family:"KaiTi","STKaiti","Kaiti SC",serif;
+  transition:opacity .25s;
+}
+#writeCanvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none;z-index:3;}
+.write-side{flex:1;min-width:260px;max-width:390px;display:flex;flex-direction:column;gap:16px;}
+.wcard{background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border-radius:22px;padding:18px;box-shadow:0 8px 26px rgba(180,160,210,.16);}
+.wcard h3{margin:0 0 12px;font-size:14px;color:#7a6b88;letter-spacing:1px;font-weight:800;}
+select#charSelect{width:100%;padding:11px 14px;border-radius:14px;border:2px solid #f0e6f7;font-size:16px;font-family:inherit;background:#fff;color:#4a3f55;outline:none;cursor:pointer;}
+select#charSelect:focus{border-color:#c9b6ff;}
+.char-chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px;}
+.char-chip{border:none;cursor:pointer;width:56px;height:56px;border-radius:15px;font-size:29px;line-height:1;color:#7a6b88;font-family:"KaiTi","STKaiti","Kaiti SC",serif;background:#fff;box-shadow:0 4px 14px rgba(180,160,210,.2);transition:.22s cubic-bezier(.34,1.56,.64,1);}
+.char-chip:hover{transform:translateY(-3px);color:#5d4d70;}
+.char-chip.active{color:#fff;background:linear-gradient(135deg,#ff9dbb,#a98bff);box-shadow:0 7px 20px rgba(169,139,255,.45);transform:translateY(-2px) scale(1.05);}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:14px;transition:.2s;color:#fff;background:linear-gradient(135deg,#a98bff,#8a6bff);box-shadow:0 5px 16px rgba(169,139,255,.35);}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06);}
+.btn:active{transform:scale(.96);}
+.btn.ghost{background:rgba(255,255,255,.92);color:#8a7d95;box-shadow:0 4px 14px rgba(180,160,210,.18);}
+.btn.ghost:hover{color:#5d4d70;}
+.btn.pink{background:linear-gradient(135deg,#ff9dbb,#ff7fa3);box-shadow:0 5px 16px rgba(255,127,163,.35);}
+.btn.mint{background:linear-gradient(135deg,#7fdcc0,#4fc3a1);box-shadow:0 5px 16px rgba(79,195,161,.35);}
+.color-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;}
+.swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.13);transition:.2s;}
+.swatch:hover{transform:scale(1.12);}
+.swatch.active{box-shadow:0 0 0 3px #a98bff;transform:scale(1.12);}
+
+/* ============ GAME (WORD NINJA & MEMORY) ============ */
+.mode-toggle { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+.mode-btn { border: none; padding: 10px 20px; border-radius: 20px; font-weight: 700; cursor: pointer; transition: .2s; background: rgba(255,255,255,.6); color: #7a6b88; }
+.mode-btn.active { background: #a98bff; color: #fff; box-shadow: 0 4px 12px rgba(169,139,255,.4); }
+
+.game-wrapper {
+  display: flex; flex-direction: column; align-items: center;
+  background: #000; border-radius: 24px; overflow: hidden;
+  box-shadow: 0 16px 44px rgba(0,0,0,.5);
+  width: 100%; max-width: 860px; margin: 0 auto; position: relative;
+}
+.game-hud {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 25px; position: absolute; top: 0; left: 0; z-index: 10;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  color: #fff; font-family: "Segoe UI", sans-serif; font-weight: bold; pointer-events: none;
+}
+.game-hud-left { display: flex; gap: 20px; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.btn-pause {
+  pointer-events: auto; background: rgba(255,255,255,0.2); border: 2px solid #fff;
+  color: #fff; border-radius: 50%; width: 40px; height: 40px; display: grid; place-items: center;
+  font-size: 18px; cursor: pointer; transition: 0.2s;
+}
+.btn-pause:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+.combo-badge {
+  position: absolute; top: 60px; right: 25px; font-size: 24px; color: #ffcc00;
+  font-weight: 900; opacity: 0; transform: scale(0.5); transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-shadow: 0 0 10px rgba(255,204,0,0.8); pointer-events: none; z-index: 10;
+}
+.combo-badge.active { opacity: 1; transform: scale(1); }
+#gameCanvas {
+  display: block; width: 100%; height: 500px;
+  background: radial-gradient(circle at center, #1a2a40 0%, #0a0f18 100%);
+  touch-action: none; cursor: crosshair;
+}
+.game-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); z-index: 20; transition: opacity 0.3s;
+}
+.game-overlay.hidden { opacity: 0; pointer-events: none; }
+.game-overlay h2 { color: #fff; font-size: 36px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+.game-overlay p { color: #ccc; margin-bottom: 30px; font-size: 18px; text-align: center;}
+.btn-restart {
+  background: linear-gradient(135deg, #ff9dbb, #a98bff); color: #fff; border: none;
+  padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer;
+  box-shadow: 0 10px 20px rgba(169,139,255,0.4); transition: 0.2s;
+}
+.btn-restart:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+/* MEMORY GAME STYLES */
+#memory-game-container { width: 100%; height: 500px; background: #fdf1f7; display: none; padding: 20px; overflow-y: auto; position: relative;}
+.mem-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 500px; margin: 0 auto; }
+.mem-card { aspect-ratio: 1/1; perspective: 1000px; cursor: pointer; }
+.mem-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s; }
+.mem-card.flipped .mem-inner { transform: rotateY(180deg); }
+.mem-front, .mem-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.mem-front { background: linear-gradient(135deg,#a98bff,#8a6bff); color: #fff; font-size: 28px; }
+.mem-back { background: #fff; color: #3d3346; transform: rotateY(180deg); border: 2px solid #a98bff; padding: 5px; text-align: center;}
+.mem-back .cn { font-size: 24px; color: #ff7fa3; }
+.mem-back .py { font-size: 14px; color: #8b7bb8; margin-top: 4px; }
+.mem-card.matched { pointer-events: none; opacity: 0.5; }
+
+/* ============ EXERCISES ============ */
+.ex-panel{max-width:860px;margin:0 auto;}
+.ex-intro{background:rgba(255,255,255,.78);backdrop-filter:blur(10px);border-radius:20px;padding:16px 20px;margin-bottom:18px;box-shadow:0 8px 26px rgba(180,160,210,.16);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+.ex-intro h2{margin:0;font-size:19px;color:#5d4d70;letter-spacing:.6px;}
+.ex-intro p{margin:4px 0 0;font-size:13px;color:#8d8298;}
+.ex-score{background:linear-gradient(135deg,#fff0f6,#f3edff);border-radius:14px;padding:9px 18px;font-weight:800;color:#a98bff;font-size:15px;white-space:nowrap;box-shadow:0 4px 12px rgba(169,139,255,.2);}
+
+/* Ex 1: Fill in the blank */
+.word-bank{background:rgba(255,255,255,.82);backdrop-filter:blur(10px);border-radius:20px;padding:14px 18px;margin-bottom:18px;box-shadow:0 8px 26px rgba(180,160,210,.14);}
+.word-bank h3{margin:0 0 10px;font-size:13px;color:#7a6b88;letter-spacing:1px;font-weight:800;}
+.bank-chips{display:flex;flex-wrap:wrap;gap:9px;}
+.bank-chip{padding:7px 15px;border-radius:999px;font-size:15px;font-weight:700;background:#fff;color:#7a6b88;border:2px solid #f0e6f7;box-shadow:0 3px 10px rgba(180,160,210,.14);transition:.2s;cursor:default;user-select:none;display:flex;flex-direction:column;align-items:center;}
+.bank-chip .py{font-size:11px;color:#a08fc4;}
+.fill-list{display:flex;flex-direction:column;gap:14px;}
+.fill-item{background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-radius:18px;padding:16px 18px;box-shadow:0 6px 20px rgba(180,160,210,.14);display:flex;gap:12px;align-items:flex-start;border-left:5px solid #ffd6e5;transition:.3s;}
+.fill-item.correct{border-left-color:#7fdcc0;background:rgba(240,255,250,.9);}
+.fill-item.wrong{border-left-color:#ff7fa3;background:rgba(255,244,248,.9);}
+.fill-num{flex:none;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#ffb3c6,#c9b6ff);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;box-shadow:0 3px 10px rgba(201,182,255,.4);}
+.fill-body{flex:1;line-height:2.2;font-size:16px;color:#4a3f55;display:flex;flex-direction:column;gap:6px;}
+.fill-body .cn { font-weight: 700; }
+.fill-body .py { font-size: 13px; color: #a08fc4; font-style: italic; margin-bottom: 6px;}
+.fill-body select{font-family:inherit;font-size:15px;font-weight:700;padding:5px 10px;border-radius:11px;border:2px solid #e6d8ff;background:#fff;color:#6f5f9c;outline:none;cursor:pointer;min-width:120px;transition:.2s;vertical-align:middle;}
+.fill-body select:focus{border-color:#a98bff;box-shadow:0 0 0 3px rgba(169,139,255,.2);}
+.fill-body select.ok{border-color:#4fc3a1;color:#2e8b6f;background:#f0fff9;}
+.fill-body select.no{border-color:#ff7fa3;color:#c94a72;background:#fff5f8;}
+.ex-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;justify-content:center;}
+.ex-result{margin-top:16px;text-align:center;font-weight:800;font-size:17px;min-height:26px;color:#a98bff;letter-spacing:.5px;}
+
+/* Ex 2: Multiple Choice */
+.mc-list{display:flex;flex-direction:column;gap:14px;}
+.mc-item{background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-radius:18px;padding:16px 18px;box-shadow:0 6px 20px rgba(180,160,210,.14);border-left:5px solid #d9cbff;transition:.3s;}
+.mc-item.correct{border-left-color:#7fdcc0;background:rgba(240,255,250,.9);}
+.mc-item.wrong{border-left-color:#ff7fa3;background:rgba(255,244,248,.9);}
+.mc-q{font-size:16px;font-weight:700;color:#4a3f55;line-height:1.5;margin-bottom:4px;}
+.mc-q-py{font-size:14px;color:#a08fc4;font-style:italic;margin-bottom:12px;}
+.mc-q .blank{display:inline-block;min-width:64px;border-bottom:2.5px dashed #a98bff;color:#a98bff;text-align:center;margin:0 4px;font-weight:900;}
+.mc-options{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+.mc-option{border:2px solid #f0e6f7;background:#fff;border-radius:13px;padding:10px 13px;font-family:inherit;font-size:15px;font-weight:700;color:#6f6180;cursor:pointer;text-align:left;transition:.2s;display:flex;flex-direction:column;}
+.mc-option:hover:not(:disabled){border-color:#c9b6ff;color:#5d4d70;transform:translateY(-1px);}
+.mc-option:disabled{cursor:default;}
+.mc-option.ok{border-color:#4fc3a1;background:#eafaf4;color:#2e8b6f;}
+.mc-option.no{border-color:#ff7fa3;background:#fff0f5;color:#c94a72;}
+.mc-option.dim{opacity:.55;}
+.mc-option .py{color:#a08fc4;font-size:13px;font-weight:600;margin-top:2px;}
+
+/* Ex 3: Word Ordering */
+.order-list{display:flex;flex-direction:column;gap:16px;}
+.order-item{background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-radius:18px;padding:16px 18px;box-shadow:0 6px 20px rgba(180,160,210,.14);border-left:5px solid #ffc2d6;}
+.order-item.correct{border-left-color:#7fdcc0;background:rgba(240,255,250,.9);}
+.order-item.wrong{border-left-color:#ff7fa3;background:rgba(255,244,248,.9);}
+.order-q{font-size:15px;color:#8d8298;margin-bottom:12px;font-style:italic;}
+.order-ans-area{min-height:48px;border-bottom:2px dashed #e6d8ff;display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;margin-bottom:12px;}
+.order-pool{display:flex;flex-wrap:wrap;gap:8px;}
+.order-word{background:#fff;border:2px solid #f0e6f7;padding:6px 14px;border-radius:12px;font-size:15px;font-weight:700;color:#6f6180;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;}
+.order-word .py{font-size:11px;color:#a08fc4;}
+.order-word:hover{border-color:#c9b6ff;transform:translateY(-2px);}
+.order-word.used{opacity:0;pointer-events:none;}
+
+@media (max-width:600px){
+  .wrap{padding:14px 12px 50px;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:11px;}
+  .vcard{height:260px;}
+  .vcard-hanzi{font-size:25px;}
+  .ex-cn{font-size:12px;}
+  .ex-vn{font-size:10.8px;}
+  #gameCanvas, #memory-game-container{height: 400px;}
+  .mc-options{grid-template-columns:1fr;}
+  .fill-body{font-size:15px;}
+  .mem-board { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="bg-blob b3"></div>
+<div class="bg-blob b4"></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-badge">BÀI 9 · 换钱</div>
+    <h1>Đổi Tiền</h1>
+    <p class="hero-sub">Giao tiếp ngân hàng · Tiền tệ · Ôn tập tiếng Trung</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="vocab">📚 Từ vựng</button>
+    <button class="tab" data-tab="dialogue">💬 Bài khóa</button>
+    <button class="tab" data-tab="grammar">📐 Ngữ pháp</button>
+    <button class="tab" data-tab="write">✍️ Luyện viết</button>
+    <button class="tab" data-tab="game">🎮 Trò chơi</button>
+    <button class="tab" data-tab="ex1">📝 Bài tập 1</button>
+    <button class="tab" data-tab="ex2">📝 Bài tập 2</button>
+    <button class="tab" data-tab="ex3">📝 Bài tập 3</button>
+  </nav>
+
+  <!-- ============ VOCAB ============ -->
+  <section class="panel active" id="panel-vocab">
+    <div class="toolbar">
+      <input id="searchInput" class="search" type="text" placeholder="🔍 Tìm từ (chữ Hán / pinyin / nghĩa)...">
+      <div class="speed-control">
+        <span>🐢</span>
+        <input type="range" id="speedRange" min="0.4" max="1.4" step="0.05" value="0.85">
+        <span>🐇</span>
+        <span id="speedVal">0.85x</span>
+      </div>
+    </div>
+    <div class="grid" id="vocabGrid"></div>
+  </section>
+
+  <!-- ============ DIALOGUE ============ -->
+  <section class="panel" id="panel-dialogue">
+    <div class="dialogue-container">
+      <div class="dlg-header">
+        <div class="dlg-title">在中国银行换钱 (Đổi tiền tại Ngân hàng Trung Quốc)</div>
+        <div class="dlg-controls">
+          <button class="dlg-btn btn-play" id="playAll">🔊 Phát toàn bộ</button>
+          <button class="dlg-btn btn-stop" id="stopAll">⏹ Dừng</button>
+          <div class="speed-control" style="margin-left:10px;">
+            <span>🐢</span>
+            <input type="range" id="dlgSpeedRange" min="0.4" max="1.4" step="0.05" value="0.85">
+            <span>🐇</span>
+          </div>
+        </div>
+      </div>
+      <div id="dialogueContent"></div>
+    </div>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section class="panel" id="panel-grammar">
+    <div class="grammar-list" id="grammarList"></div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="panel" id="panel-write">
+    <div class="write-panel-container">
+      <div class="wcard word-select-card">
+        <h3>✍️ CHỌN TỪ ĐỂ LUYỆN VIẾT</h3>
+        <select id="charSelect"></select>
+        <div class="char-chips" id="charChips"></div>
+        <div class="row">
+          <button class="btn pink" id="btnSpeakWrite">🔊 Nghe đọc</button>
+          <button class="btn" id="btnAnim" style="background:linear-gradient(135deg,#a98bff,#8a6bff);">▶️ Xem nét vẽ</button>
+          <button class="btn ghost" id="btnRandom">🎲 Ngẫu nhiên</button>
+        </div>
+      </div>
+      <div class="write-wrap">
+        <div class="write-stage" id="writeStage">
+          <svg class="grid-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <rect x="0.6" y="0.6" width="98.8" height="98.8" fill="none" stroke="#ffb3c6" stroke-width="1.2"/>
+            <line x1="50" y1="0.6" x2="50" y2="99.4" stroke="#ffd0de" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <line x1="0.6" y1="50" x2="99.4" y2="50" stroke="#ffd0de" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <line x1="0.6" y1="0.6" x2="99.4" y2="99.4" stroke="#ffe8f0" stroke-width="0.6" stroke-dasharray="3 3"/>
+            <line x1="99.4" y1="0.6" x2="0.6" y2="99.4" stroke="#ffe8f0" stroke-width="0.6" stroke-dasharray="3 3"/>
+          </svg>
+          <div class="hanzi-anim" id="hanziAnim"></div>
+          <div class="trace-char" id="traceChar">换</div>
+          <canvas id="writeCanvas"></canvas>
+        </div>
+        <div class="write-side">
+          <div class="wcard">
+            <h3>🖌️ BÚT VẼ</h3>
+            <div class="color-row" id="colorRow">
+              <div class="swatch active" data-color="#3d3346" style="background:#3d3346"></div>
+              <div class="swatch" data-color="#ff7fa3" style="background:#ff7fa3"></div>
+              <div class="swatch" data-color="#a98bff" style="background:#a98bff"></div>
+              <div class="swatch" data-color="#4fc3a1" style="background:#4fc3a1"></div>
+              <div class="swatch" data-color="#ffa726" style="background:#ffa726"></div>
+            </div>
+            <div class="row" style="margin-top:14px;">
+              <button class="btn mint" id="btnUndo">↩️ Xóa nét vừa viết</button>
+              <button class="btn ghost" id="btnClear">🧹 Xóa hết</button>
+              <button class="btn ghost" id="btnTrace">👁️ Ẩn/Hiện mẫu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section class="panel" id="panel-game">
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btnModeNinja">⚔️ Word Ninja</button>
+      <button class="mode-btn" id="btnModeMemory">🧠 Memory Game</button>
+    </div>
+
+    <!-- Word Ninja Game -->
+    <div id="ninja-game-container">
+      <div class="game-wrapper">
+        <div class="game-hud">
+          <div class="game-hud-left">
+            <span>⭐ Điểm: <span id="ui-score">0</span></span>
+            <span>❤️ Mạng: <span id="ui-lives">3</span></span>
+          </div>
+          <button class="btn-pause" id="ui-pause-btn" title="Tạm dừng">⏸</button>
+        </div>
+        <div class="combo-badge" id="ui-combo">COMBO x2!</div>
+        
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="game-overlay" id="ui-overlay">
+          <h2 id="ui-title">Word Ninja</h2>
+          <p id="ui-desc">Dùng chuột (hoặc vuốt tay) để chém các từ tiếng Trung.<br>Đừng để chúng rơi xuống đất!</p>
+          <button class="btn-restart" id="ui-restart">Bắt đầu chơi</button>
+        </div>
+
+        <div class="game-overlay hidden" id="ui-pause-overlay">
+          <h2>Tạm dừng</h2>
+          <p>Trò chơi đang tạm dừng.</p>
+          <button class="btn-restart" id="ui-resume">Tiếp tục ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Memory Game -->
+    <div id="memory-game-container">
+      <div class="game-overlay hidden" id="mem-overlay">
+        <h2 id="mem-title">Chúc mừng!</h2>
+        <p id="mem-desc">Bạn đã ghép thành công tất cả các cặp thẻ.</p>
+        <button class="btn-restart" id="mem-restart">Chơi lại</button>
+      </div>
+      <div class="mem-board" id="memBoard"></div>
+    </div>
+  </section>
+
+  <!-- ============ EX 1: FILL IN THE BLANKS ============ -->
+  <section class="panel" id="panel-ex1">
+    <div class="ex-panel">
+      <div class="ex-intro">
+        <div>
+          <h2>📝 Bài tập 1: Điền từ</h2>
+          <p>Chọn từ thích hợp để hoàn thành đoạn hội thoại.</p>
+        </div>
+        <div class="ex-score">Điểm: <span id="ex1Score">0</span>/<span id="ex1Total">5</span></div>
+      </div>
+      <div class="word-bank">
+        <h3>📦 BẢNG TỪ (WORD BANK)</h3>
+        <div class="bank-chips" id="ex1Bank"></div>
+      </div>
+      <div class="fill-list" id="ex1List"></div>
+      <div class="ex-actions">
+        <button class="btn mint" id="ex1Check">✅ Kiểm tra</button>
+        <button class="btn ghost" id="ex1Reset">🔄 Làm lại</button>
+      </div>
+      <div class="ex-result" id="ex1Result"></div>
+    </div>
+  </section>
+
+  <!-- ============ EX 2: MULTIPLE CHOICE ============ -->
+  <section class="panel" id="panel-ex2">
+    <div class="ex-panel">
+      <div class="ex-intro">
+        <div>
+          <h2>🎯 Bài tập 2: Trắc nghiệm</h2>
+          <p>Chọn đáp án đúng nhất.</p>
+        </div>
+        <div class="ex-score">Điểm: <span id="ex2Score">0</span>/<span id="ex2Total">5</span></div>
+      </div>
+      <div class="mc-list" id="ex2List"></div>
+      <div class="ex-actions">
+        <button class="btn ghost" id="ex2Reset">🔄 Làm lại</button>
+      </div>
+      <div class="ex-result" id="ex2Result"></div>
+    </div>
+  </section>
+
+  <!-- ============ EX 3: WORD ORDERING ============ -->
+  <section class="panel" id="panel-ex3">
+    <div class="ex-panel">
+      <div class="ex-intro">
+        <div>
+          <h2>🧩 Bài tập 3: Sắp xếp câu</h2>
+          <p>Nhấp vào các từ để xếp thành câu đúng.</p>
+        </div>
+        <div class="ex-score">Điểm: <span id="ex3Score">0</span>/<span id="ex3Total">5</span></div>
+      </div>
+      <div class="order-list" id="ex3List"></div>
+      <div class="ex-actions">
+        <button class="btn mint" id="ex3Check">✅ Kiểm tra</button>
+        <button class="btn ghost" id="ex3Reset">🔄 Làm lại</button>
+      </div>
+      <div class="ex-result" id="ex3Result"></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* =========================================================
+   1. DỮ LIỆU TỪ VỰNG & ÂM THANH
+   ========================================================= */
+const WORDS = [
+  {h:'下午', p:'xiàwǔ', m:'buổi chiều', ex:[
+    ['下午我去图书馆。','Buổi chiều tôi đi thư viện.'],
+    ['明天下午你有空吗？','Chiều mai bạn có rảnh không?'],
+    ['今天下午天气很好。','Chiều nay thời tiết rất đẹp.']
+  ]},
+  {h:'上午', p:'shàngwǔ', m:'buổi sáng', ex:[
+    ['上午我去银行。','Buổi sáng tôi đi ngân hàng.'],
+    ['上午我很忙。','Buổi sáng tôi rất bận.'],
+    ['明天上午我们去上课。','Sáng mai chúng tôi đi học.']
+  ]},
+  {h:'图书馆', p:'túshūguǎn', m:'thư viện', ex:[
+    ['你去不去图书馆？','Bạn có đi thư viện không?'],
+    ['图书馆里很安静。','Trong thư viện rất yên tĩnh.'],
+    ['他在图书馆看书。','Anh ấy đọc sách ở thư viện.']
+  ]},
+  {h:'换', p:'huàn', m:'đổi, thay', ex:[
+    ['我要去银行换钱。','Tôi muốn đi ngân hàng đổi tiền.'],
+    ['我想换人民币。','Tôi muốn đổi nhân dân tệ.'],
+    ['你换什么钱？','Bạn đổi tiền gì?']
+  ]},
+  {h:'小姐', p:'xiǎojiě', m:'cô, tiểu thư', ex:[
+    ['小姐，我换钱。','Cô ơi, tôi đổi tiền.'],
+    ['那位小姐是谁？','Cô gái kia là ai?'],
+    ['小姐，请等一下。','Cô ơi, xin đợi một chút.']
+  ]},
+  {h:'营业员', p:'yíngyèyuán', m:'nhân viên giao dịch', ex:[
+    ['营业员在银行工作。','Nhân viên giao dịch làm việc ở ngân hàng.'],
+    ['那个营业员很热情。','Nhân viên giao dịch kia rất nhiệt tình.'],
+    ['请问营业员在哪里？','Xin hỏi nhân viên giao dịch ở đâu?']
+  ]},
+  {h:'人民币', p:'rénmínbì', m:'nhân dân tệ', ex:[
+    ['我换人民币。','Tôi đổi nhân dân tệ.'],
+    ['这是人民币。','Đây là nhân dân tệ.'],
+    ['人民币的汇率是多少？','Tỷ giá nhân dân tệ là bao nhiêu?']
+  ]},
+  {h:'百', p:'bǎi', m:'trăm', ex:[
+    ['二百美元。','Hai trăm đô la Mỹ.'],
+    ['我有一百块钱。','Tôi có một trăm tệ.'],
+    ['他买了一百个苹果。','Anh ấy mua một trăm quả táo.']
+  ]},
+  {h:'千', p:'qiān', m:'nghìn', ex:[
+    ['三千人民币。','Ba nghìn tệ.'],
+    ['他花了五千块钱。','Anh ấy đã tiêu năm nghìn tệ.'],
+    ['这个手机一千块。','Cái điện thoại này một nghìn tệ.']
+  ]},
+  {h:'万', p:'wàn', m:'vạn (mười nghìn)', ex:[
+    ['一万块钱。','Mười nghìn tệ.'],
+    ['今天卖了一万块。','Hôm nay bán được mười nghìn tệ.'],
+    ['这个房子要一百万。','Căn nhà này cần một triệu.']
+  ]},
+  {h:'美元', p:'měiyuán', m:'đô la Mỹ', ex:[
+    ['我换二百美元。','Tôi đổi hai trăm đô la Mỹ.'],
+    ['美元比人民币贵。','Đô la Mỹ đắt hơn tệ.'],
+    ['你有美元吗？','Bạn có đô la Mỹ không?']
+  ]},
+  {h:'港币', p:'gǎngbì', m:'đô la Hồng Kông', ex:[
+    ['他换港币。','Anh ấy đổi đô la Hồng Kông.'],
+    ['港币怎么换？','Đô la Hồng Kông đổi thế nào?'],
+    ['我想换一点港币。','Tôi muốn đổi một chút đô la Hồng Kông.']
+  ]},
+  {h:'日元', p:'rìyuán', m:'Yên Nhật', ex:[
+    ['日元换人民币。','Yên Nhật đổi sang tệ.'],
+    ['日元现在便宜吗？','Yên Nhật bây giờ có rẻ không?'],
+    ['他有很多日元。','Anh ấy có rất nhiều Yên Nhật.']
+  ]},
+  {h:'韩元', p:'hányuán', m:'Won Hàn Quốc', ex:[
+    ['韩元换人民币。','Won Hàn Quốc đổi sang tệ.'],
+    ['韩元不值钱。','Won Hàn Quốc không đáng tiền.'],
+    ['你去韩国要换韩元。','Bạn đi Hàn Quốc phải đổi Won.']
+  ]},
+  {h:'欧元', p:'ōuyuán', m:'Euro', ex:[
+    ['欧元换人民币。','Euro đổi sang tệ.'],
+    ['欧元很贵。','Euro rất đắt.'],
+    ['这是五十欧元。','Đây là năm mươi Euro.']
+  ]},
+  {h:'等', p:'děng', m:'đợi, chờ', ex:[
+    ['请等一会儿。','Xin đợi một lát.'],
+    ['你等我一下。','Bạn đợi tôi một chút.'],
+    ['我们在外面等你。','Chúng tôi đợi bạn ở ngoài.']
+  ]},
+  {h:'一会儿', p:'yíhuìr', m:'một lát', ex:[
+    ['请等一会儿。','Xin đợi một lát.'],
+    ['我一会儿就去。','Tôi sẽ đi ngay.'],
+    ['他一会儿就回来。','Anh ấy sẽ về ngay.']
+  ]},
+  {h:'先生', p:'xiānsheng', m:'ngài, ông', ex:[
+    ['先生，给您钱。','Thưa ngài, tiền của ngài đây.'],
+    ['王先生在家吗？','Ông Vương có nhà không?'],
+    ['这位先生是谁？','Vị tiên sinh này là ai?']
+  ]},
+  {h:'数', p:'shǔ', m:'đếm', ex:[
+    ['请数数。','Xin hãy đếm.'],
+    ['你数一下钱。','Bạn đếm tiền một chút.'],
+    ['他在数苹果。','Anh ấy đang đếm táo.']
+  ]}
+];
+
+let speechRate = 0.85;
+let dlgRate = 0.85;
+let availableVoices = [];
+
+function initVoices() {
+  if(!('speechSynthesis' in window)) return;
+  availableVoices = window.speechSynthesis.getVoices() || [];
+}
+if('speechSynthesis' in window){
+  initVoices();
+  window.speechSynthesis.onvoiceschanged = initVoices;
+  setTimeout(initVoices, 500);
+}
+
+// TỪ ĐIỂN ÉP PHÁT ÂM (Sửa lỗi đa âm từ và ngắt âm)
+const PRONUNCIATION_FIX = {
+  '一会儿': '等一会儿', // Thêm "đợi" để ép đọc liền âm r (yí huìr)
+  '数': '数一数'        // Thêm "một chút" để ép đọc thanh 3 (shǔ yī shǔ)
+};
+
+function speak(text, type = 'default', rateOverride = null) {
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  
+  let speakText = text;
+  let customRate = rateOverride || (type === 'dlg' ? dlgRate : speechRate);
+
+  // Áp dụng ép phát âm
+  if (PRONUNCIATION_FIX[text]) {
+    speakText = PRONUNCIATION_FIX[text];
+  }
+
+  const u = new SpeechSynthesisUtterance(speakText);
+  u.lang = 'zh-CN';
+  u.rate = customRate;
+  u.pitch = 1.0;
+
+  // Lọc giọng
+  const CANTONESE = ['sinji','cantonese','yue','zh-hk','zh_hk','hong kong'];
+  const validVoices = availableVoices.filter(v => {
+    const lang = (v.lang || '').toLowerCase().replace('_','-');
+    const name = (v.name || '').toLowerCase();
+    const isCanto = CANTONESE.some(b => lang.includes(b) || name.includes(b));
+    return !isCanto && (lang.includes('zh') || name.includes('chinese') || name.includes('mandarin'));
+  });
+
+  let selectedVoice = null;
+
+  if (type === 'male') {
+    selectedVoice = validVoices.find(v => v.name.includes('Yunxi') || v.name.includes('Yunyang') || v.name.includes('Kangkang') || v.name.includes('Male'));
+    u.pitch = 0.8;
+  } else if (type === 'female') {
+    selectedVoice = validVoices.find(v => v.name.includes('Xiaoxiao') || v.name.includes('Xiaoyi') || v.name.includes('Ting-Ting') || v.name.includes('Mei-Jia') || v.name.includes('Yaoyao') || v.name.includes('Huihui'));
+    u.pitch = 1.25;
+  } else {
+    selectedVoice = validVoices.find(v => v.name.includes('Xiaoxiao') || v.name.includes('Ting-Ting') || v.name.includes('Huihui') || v.name.includes('Google 普通话'));
+    u.pitch = 1.1;
+  }
+
+  if (selectedVoice) u.voice = selectedVoice;
+
+  if (text === '多少') {
+    u.rate = 0.7; 
+  }
+
+  window.speechSynthesis.speak(u);
+}
+
+/* ---- SFX ---- */
+let audioCtx = null;
+function getAudio(){
+  if(!audioCtx){ try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){} }
+  if(audioCtx && audioCtx.state === 'suspended'){ try{ audioCtx.resume(); }catch(e){} }
+  return audioCtx;
+}
+function sfxSliceSound(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'sine';
+  o.frequency.setValueAtTime(1200, t);
+  o.frequency.exponentialRampToValueAtTime(300, t + 0.1);
+  g.gain.setValueAtTime(0.001, t);
+  g.gain.linearRampToValueAtTime(0.2, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t + 0.12);
+}
+function sfxMiss(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'square'; o.frequency.setValueAtTime(200, t); o.frequency.exponentialRampToValueAtTime(80, t + 0.3);
+  g.gain.setValueAtTime(0.001, t); g.gain.linearRampToValueAtTime(0.1, t + 0.02); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+  o.connect(g).connect(ac.destination); o.start(t); o.stop(t + 0.32);
+}
+function sfxClick(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'sine'; o.frequency.value = 660;
+  g.gain.setValueAtTime(0.001, t); g.gain.linearRampToValueAtTime(0.08, t + 0.01); g.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+  o.connect(g).connect(ac.destination); o.start(t); o.stop(t + 0.14);
+}
+
+/* Hàm hỗ trợ xáo trộn mảng (Fisher-Yates) */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+/* =========================================================
+   2. TABS & SPEED
+   ========================================================= */
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+let writeInited = false;
+
+tabs.forEach(t => {
+  t.addEventListener('click', () => {
+    sfxClick();
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-' + t.dataset.tab).classList.add('active');
+    
+    if(t.dataset.tab === 'write' && !writeInited){ 
+      writeInited = true; 
+      setTimeout(setupCanvas, 60); 
+    }
+    if(t.dataset.tab === 'game') {
+      resizeCanvas();
+      if(!ninjaGame.running && !ninjaGame.gameOver && !ninjaGame.isPaused) {
+        document.getElementById('ui-overlay').classList.remove('hidden');
+      }
+    }
+  });
+});
+
+const speedRange = document.getElementById('speedRange');
+const speedVal = document.getElementById('speedVal');
+speedRange.addEventListener('input', () => {
+  speechRate = parseFloat(speedRange.value);
+  speedVal.textContent = speechRate.toFixed(2) + 'x';
+});
+
+const dlgSpeedRange = document.getElementById('dlgSpeedRange');
+dlgSpeedRange.addEventListener('input', () => {
+  dlgRate = parseFloat(dlgSpeedRange.value);
+});
+
+/* =========================================================
+   3. VOCAB
+   ========================================================= */
+const vocabGrid = document.getElementById('vocabGrid');
+const searchInput = document.getElementById('searchInput');
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderVocab(){
+  const raw = searchInput.value.trim().toLowerCase();
+  vocabGrid.innerHTML = '';
+  const list = WORDS.filter(w => {
+    if(!raw) return true;
+    return w.h.includes(raw) || w.p.toLowerCase().includes(raw) || w.m.toLowerCase().includes(raw);
+  });
+  list.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'vcard';
+    const exHtml = w.ex.map(e => `<div class="ex-item"><div class="ex-cn" data-ex="${esc(e[0])}">${esc(e[0])} 🔊</div><div class="ex-vn">${esc(e[1])}</div></div>`).join('');
+    card.innerHTML = `
+      <div class="vcard-inner">
+        <div class="vcard-face vcard-front">
+          <div class="vcard-top"><div class="vcard-hanzi">${esc(w.h)}</div><button class="spk" type="button">🔊</button></div>
+          <div class="vcard-pinyin">${esc(w.p)}</div>
+          <div class="vcard-mean">${esc(w.m)}</div>
+          <div class="vcard-hint"><span class="dot"></span>Lật thẻ để xem ví dụ</div>
+        </div>
+        <div class="vcard-face vcard-back">
+          <div class="vcard-back-title"><span>📖 例句 VÍ DỤ</span></div>
+          ${exHtml}
+        </div>
+      </div>`;
+    card.addEventListener('click', e => {
+      if(e.target.closest('.spk')){ e.stopPropagation(); speak(w.h); return; }
+      const exEl = e.target.closest('.ex-cn');
+      if(exEl){ e.stopPropagation(); speak(exEl.dataset.ex); return; }
+      card.classList.toggle('flipped');
+    });
+    vocabGrid.appendChild(card);
+  });
+}
+searchInput.addEventListener('input', renderVocab);
+renderVocab();
+
+/* =========================================================
+   4. DIALOGUE (Voice Nam / Nữ)
+   ========================================================= */
+const DIALOGUE = [
+  { role: 'A', zh: '下午我去图书馆，你去不去？', py: 'Xiàwǔ wǒ qù túshūguǎn, nǐ qù bú qù?', vn: 'Buổi chiều tôi đi thư viện, bạn có đi không?' },
+  { role: 'B', zh: '我不去。我要去银行换钱。', py: 'Wǒ bú qù. Wǒ yào qù yínháng huàn qián.', vn: 'Tôi không đi. Tôi muốn đi ngân hàng đổi tiền.' },
+  { role: 'B', zh: '小姐，我换钱。', py: 'Xiǎojiě, wǒ huàn qián.', vn: 'Cô ơi, tôi đổi tiền.' },
+  { role: 'C', zh: '您换什么钱？', py: 'Nín huàn shénme qián?', vn: 'Ngài đổi tiền gì?' },
+  { role: 'B', zh: '我换人民币。', py: 'Wǒ huàn rénmínbì.', vn: 'Tôi đổi nhân dân tệ.' },
+  { role: 'C', zh: '换多少？', py: 'Huàn duōshao?', vn: 'Đổi bao nhiêu?' },
+  { role: 'B', zh: '二百美元。', py: 'Èrbǎi měiyuán.', vn: 'Hai trăm đô la Mỹ.' },
+  // Thay "请数数" thành "请数一下" để ép hệ thống đọc chuẩn âm shǔ
+  { role: 'C', zh: '请等一会儿。…… 先生，给您钱。请数一下。', py: 'Qǐng děng yíhuìr. ...... Xiānsheng, gěi nín qián. Qǐng shǔ yí xià.', vn: 'Xin đợi một lát. ... Thưa ngài, tiền của ngài đây. Xin hãy đếm một chút.' },
+  { role: 'B', zh: '对。谢谢！', py: 'Duì. Xièxie!', vn: 'Đúng rồi. Cảm ơn!' },
+  { role: 'C', zh: '不客气！', py: 'Bú kèqi!', vn: 'Không có gì!' }
+];
+
+const dialogueContent = document.getElementById('dialogueContent');
+function renderDialogue() {
+  dialogueContent.innerHTML = DIALOGUE.map((line, idx) => {
+    let avatarClass = 'avatar-b';
+    if (line.role === 'A') avatarClass = 'avatar-a';
+    if (line.role === 'C') avatarClass = 'avatar-c';
+
+    return `
+    <div class="dlg-line" id="dlg-line-${idx}">
+      <div class="dlg-avatar ${avatarClass}">${line.role}</div>
+      <div class="dlg-content">
+        <div class="dlg-zh" onclick="speak('${esc(line.zh)}', '${line.role === 'A' || line.role === 'C' ? 'female' : 'male'}')">${line.zh}</div>
+        <div class="dlg-py">${line.py}</div>
+        <div class="dlg-vn">${line.vn}</div>
+      </div>
+    </div>
+  `}).join('');
+}
+renderDialogue();
+
+let isPlayingDialogue = false;
+
+document.getElementById('playAll').addEventListener('click', async () => {
+  if(isPlayingDialogue) return;
+  if(!('speechSynthesis' in window)) return;
+  
+  isPlayingDialogue = true;
+  window.speechSynthesis.cancel();
+  const btn = document.getElementById('playAll');
+  const originalText = btn.textContent;
+  btn.textContent = '⏹ Đang phát...';
+
+  for (let i = 0; i < DIALOGUE.length; i++) {
+    if (!isPlayingDialogue) break;
+
+    const line = DIALOGUE[i];
+    const el = document.getElementById(`dlg-line-${i}`);
+    
+    document.querySelectorAll('.dlg-line').forEach(e => e.classList.remove('highlight'));
+    el.classList.add('highlight');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    await new Promise(resolve => {
+      if (!isPlayingDialogue) return resolve();
+
+      const u = new SpeechSynthesisUtterance(line.zh);
+      u.lang = 'zh-CN';
+      u.rate = dlgRate;
+      
+      const CANTONESE = ['sinji','cantonese','yue','zh-hk','zh_hk','hong kong'];
+      const validVoices = availableVoices.filter(v => {
+        const lang = (v.lang || '').toLowerCase().replace('_','-');
+        const name = (v.name || '').toLowerCase();
+        const isCanto = CANTONESE.some(b => lang.includes(b) || name.includes(b));
+        return !isCanto && (lang.includes('zh') || name.includes('chinese') || name.includes('mandarin'));
+      });
+
+      let selectedVoice = null;
+
+      if (line.role === 'A' || line.role === 'C') {
+        u.pitch = 1.3; 
+        selectedVoice = validVoices.find(v => v.name.includes('Xiaoxiao') || v.name.includes('Ting-Ting') || v.name.includes('Huihui'));
+      } else {
+        u.pitch = 0.75; 
+        selectedVoice = validVoices.find(v => v.name.includes('Yunxi') || v.name.includes('Yunyang') || v.name.includes('Kangkang'));
+      }
+      if (selectedVoice) u.voice = selectedVoice;
+      
+      u.onend = resolve;
+      u.onerror = resolve;
+      window.speechSynthesis.speak(u);
+    });
+    if (!isPlayingDialogue) break;
+    await new Promise(r => setTimeout(r, 400));
+  }
+  
+  document.querySelectorAll('.dlg-line').forEach(e => e.classList.remove('highlight'));
+  btn.textContent = originalText;
+  isPlayingDialogue = false;
+});
+
+document.getElementById('stopAll').addEventListener('click', () => {
+  sfxClick();
+  isPlayingDialogue = false;
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.dlg-line').forEach(e => e.classList.remove('highlight'));
+  document.getElementById('playAll').textContent = '🔊 Phát toàn bộ';
+});
+
+/* =========================================================
+   5. GRAMMAR
+   ========================================================= */
+const GRAMMAR_DATA = [
+  {
+    title: '1. Câu hỏi chính phản (V不V)',
+    formula: 'S + V + 不 + V (+ tân ngữ)? ≈ S + V (+ tân ngữ) + 吗?',
+    desc: 'Dùng để hỏi "Có ... không?". Lưu ý: KHÔNG dùng đồng thời V不V + 吗.',
+    ex: [
+      { zh:'你去不去图书馆？', py:'Nǐ qù bú qù túshūguǎn?', vn:'Bạn có đi thư viện không?' },
+      { zh:'你去图书馆吗？', py:'Nǐ qù túshūguǎn ma?', vn:'Bạn đi thư viện không?' },
+      { zh:'你想不想吃芒果？', py:'Nǐ xiǎng bù xiǎng chī mángguǒ?', vn:'Bạn có muốn ăn xoài không?' },
+      { zh:'你想吃芒果吗？', py:'Nǐ xiǎng chī mángguǒ ma?', vn:'Bạn muốn ăn xoài không?' }
+    ]
+  },
+  {
+    title: '2. Động từ + 一会儿',
+    formula: 'S + V + 一会儿 (+ tân ngữ)?',
+    desc: '一会儿 (yíhuìr) nghĩa là "một lát, một chốc". Dùng để chỉ thời gian ngắn.',
+    ex: [
+      { zh:'请等一会儿。', py:'Qǐng děng yíhuìr.', vn:'Xin đợi một lát.' },
+      { zh:'我很累，我想休息一会儿。', py:'Wǒ hěn lèi, wǒ xiǎng xiūxi yíhuìr.', vn:'Tôi rất mệt, tôi muốn nghỉ một lát.' },
+      { zh:'请坐一会儿。', py:'Qǐng zuò yíhuìr.', vn:'Xin ngồi một lát.' },
+      { zh:'我们看一会儿电视吧。', py:'Wǒmen kàn yíhuìr diànshì ba.', vn:'Chúng ta xem TV một lát nhé.' }
+    ]
+  }
+];
+
+const grammarList = document.getElementById('grammarList');
+function renderGrammar() {
+  grammarList.innerHTML = GRAMMAR_DATA.map(item => {
+    const exHtml = item.ex.map(e => `
+      <div class="gr-ex-item">
+        <div class="gr-ex-content">
+          <div class="gr-ex-zh">${e.zh}</div>
+          <div class="gr-ex-py">${e.py}</div>
+          <div class="gr-ex-vn">${e.vn}</div>
+        </div>
+        <button class="gr-spk" data-text="${esc(e.zh)}">🔊</button>
+      </div>
+    `).join('');
+    return `<div class="grammar-card"><h3 class="gr-title">${item.title}</h3><div class="gr-formula">${item.formula}</div><p class="gr-desc">${item.desc}</p><div class="gr-ex-list">${exHtml}</div></div>`;
+  }).join('');
+
+  grammarList.querySelectorAll('.gr-spk').forEach(btn => btn.addEventListener('click', () => speak(btn.dataset.text)));
+}
+renderGrammar();
+
+/* =========================================================
+   6. WRITING (CÓ ANIMATION)
+   ========================================================= */
+const canvas = document.getElementById('writeCanvas');
+const ctx = canvas.getContext('2d');
+const traceChar = document.getElementById('traceChar');
+const charSelect = document.getElementById('charSelect');
+const charChips = document.getElementById('charChips');
+const colorRow = document.getElementById('colorRow');
+const btnAnim = document.getElementById('btnAnim');
+
+let drawing = false, lastX = 0, lastY = 0;
+let brushColor = '#3d3346';
+const brushSize = 7;
+let history = [];
+let traceVisible = true;
+let activeChar = '换';
+let hanziWriter = null;
+
+WORDS.forEach((w, i) => {
+  const o = document.createElement('option');
+  o.value = i;
+  o.textContent = w.h + '  —  ' + w.p;
+  charSelect.appendChild(o);
+});
+
+function currentWord(){ return WORDS[parseInt(charSelect.value, 10) || 0]; }
+
+function updateHanziAnim(char) {
+  const animDiv = document.getElementById('hanziAnim');
+  animDiv.innerHTML = '';
+  if (window.HanziWriter) {
+    const size = document.getElementById('writeStage').clientWidth || 300;
+    hanziWriter = HanziWriter.create('hanziAnim', char, {
+      width: size, height: size, padding: 5,
+      showOutline: false, showCharacter: false,
+      strokeAnimationSpeed: 1, delayBetweenStrokes: 200,
+      strokeColor: '#d9cbff'
+    });
+    traceChar.style.display = 'none';
+  } else {
+    traceChar.style.display = 'grid';
+    traceChar.textContent = char;
+    animDiv.innerHTML = ''; 
+  }
+}
+
+function buildCharChips(){
+  const w = currentWord();
+  const chars = Array.from(w.h);
+  charChips.innerHTML = '';
+  chars.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'char-chip' + (i === 0 ? ' active' : '');
+    b.textContent = c;
+    b.addEventListener('click', () => {
+      sfxClick();
+      charChips.querySelectorAll('.char-chip').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      activeChar = c;
+      clearCanvas(true);
+      speak(c);
+      updateHanziAnim(c);
+    });
+    charChips.appendChild(b);
+  });
+  activeChar = chars[0];
+  clearCanvas(true);
+  updateHanziAnim(activeChar);
+}
+
+charSelect.addEventListener('change', () => { buildCharChips(); speak(currentWord().h); });
+document.getElementById('btnSpeakWrite').addEventListener('click', () => speak(currentWord().h));
+
+btnAnim.addEventListener('click', () => {
+  sfxClick();
+  if (hanziWriter) hanziWriter.animateCharacter();
+});
+
+document.getElementById('btnRandom').addEventListener('click', () => {
+  sfxClick();
+  const i = Math.floor(Math.random() * WORDS.length);
+  charSelect.value = i;
+  buildCharChips();
+  speak(WORDS[i].h);
+});
+document.getElementById('btnTrace').addEventListener('click', () => {
+  sfxClick();
+  traceVisible = !traceVisible;
+  traceChar.style.opacity = traceVisible ? '1' : '0';
+  document.getElementById('hanziAnim').style.opacity = traceVisible ? '1' : '0';
+});
+colorRow.addEventListener('click', e => {
+  const sw = e.target.closest('.swatch');
+  if(!sw) return;
+  colorRow.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  sw.classList.add('active');
+  brushColor = sw.dataset.color;
+  ctx.strokeStyle = brushColor;
+});
+
+function setupCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  if(rect.width === 0) return;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = brushSize;
+  ctx.strokeStyle = brushColor;
+  history = [];
+  if(charChips.children.length === 0) buildCharChips();
+  else updateHanziAnim(activeChar);
+}
+
+function pushHistory(){
+  try{ history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); if(history.length > 25) history.shift(); }catch(e){}
+}
+function getPos(e){ const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+
+canvas.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
+  drawing = true;
+  const p = getPos(e); lastX = p.x; lastY = p.y;
+  pushHistory();
+  ctx.beginPath(); ctx.arc(p.x, p.y, brushSize / 2, 0, Math.PI * 2);
+  ctx.fillStyle = brushColor; ctx.fill();
+});
+canvas.addEventListener('pointermove', e => {
+  if(!drawing) return;
+  e.preventDefault();
+  const p = getPos(e);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+  lastX = p.x; lastY = p.y;
+});
+function endDraw(){ drawing = false; }
+canvas.addEventListener('pointerup', endDraw);
+canvas.addEventListener('pointercancel', endDraw);
+canvas.addEventListener('pointerleave', endDraw);
+
+function clearCanvas(silent){
+  if(!silent) pushHistory();
+  const r = canvas.getBoundingClientRect();
+  ctx.clearRect(0, 0, r.width, r.height);
+}
+document.getElementById('btnClear').addEventListener('click', () => { sfxClick(); clearCanvas(false); });
+document.getElementById('btnUndo').addEventListener('click', () => {
+  if(history.length === 0) return;
+  sfxClick();
+  const img = history.pop();
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.putImageData(img, 0, 0); ctx.restore();
+});
+window.addEventListener('resize', () => { if(writeInited) setTimeout(setupCanvas, 120); });
+
+
+/* =========================================================
+   7. GAME: WORD NINJA & MEMORY
+   ========================================================= */
+const GAME_WORDS = [
+  { h: '下午', p: 'xiàwǔ' },
+  { h: '上午', p: 'shàngwǔ' },
+  { h: '图书馆', p: 'túshūguǎn' },
+  { h: '换', p: 'huàn' },
+  { h: '小姐', p: 'xiǎojiě' },
+  { h: '营业员', p: 'yíngyèyuán' },
+  { h: '人民币', p: 'rénmínbì' },
+  { h: '美元', p: 'měiyuán' },
+  { h: '等', p: 'děng' },
+  { h: '一会儿', p: 'yíhuìr' },
+  { h: '先生', p: 'xiānsheng' },
+  { h: '数', p: 'shǔ' }
+];
+
+// Toggle Mode
+const btnModeNinja = document.getElementById('btnModeNinja');
+const btnModeMemory = document.getElementById('btnModeMemory');
+const containerNinja = document.getElementById('ninja-game-container');
+const containerMemory = document.getElementById('memory-game-container');
+
+btnModeNinja.addEventListener('click', () => {
+  sfxClick();
+  btnModeNinja.classList.add('active');
+  btnModeMemory.classList.remove('active');
+  containerNinja.style.display = 'block';
+  containerMemory.style.display = 'none';
+  ninjaGame.pause();
+  resizeCanvas();
+});
+
+btnModeMemory.addEventListener('click', () => {
+  sfxClick();
+  btnModeMemory.classList.add('active');
+  btnModeNinja.classList.remove('active');
+  containerNinja.style.display = 'none';
+  containerMemory.style.display = 'block';
+  initMemoryGame();
+});
+
+/* ===== WORD NINJA LOGIC ===== */
+const canvasGame = document.getElementById('gameCanvas');
+const ctxGame = canvasGame.getContext('2d');
+const uiScore = document.getElementById('ui-score');
+const uiLives = document.getElementById('ui-lives');
+const uiCombo = document.getElementById('ui-combo');
+const uiOverlay = document.getElementById('ui-overlay');
+const uiPauseOverlay = document.getElementById('ui-pause-overlay');
+const uiPauseBtn = document.getElementById('ui-pause-btn');
+const uiResume = document.getElementById('ui-resume');
+const uiRestart = document.getElementById('ui-restart');
+
+let width, height;
+function resizeCanvas() {
+  const rect = canvasGame.getBoundingClientRect();
+  width = rect.width;
+  height = rect.height;
+  canvasGame.width = width;
+  canvasGame.height = height;
+}
+window.addEventListener('resize', resizeCanvas);
+setTimeout(resizeCanvas, 100);
+
+class FruitItem {
+  constructor(wordObj) {
+    this.text = wordObj.h;
+    this.pinyin = wordObj.p;
+    this.radius = 45;
+    this.x = Math.random() * (width - this.radius * 2) + this.radius;
+    this.y = height + this.radius;
+    this.vx = (width / 2 - this.x) * (0.5 + Math.random() * 0.5) / 100;
+    this.vy = -(9 + Math.random() * 3);
+    this.gravity = 0.15;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.vr = (Math.random() - 0.5) * 0.1;
+    this.color = Math.floor(Math.random() * 360);
+    this.isSliced = false;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.rotation += this.vr;
+  }
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.beginPath();
+    ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.color}, 80%, 60%, 0.2)`;
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = `hsla(${this.color}, 90%, 70%, 1)`;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = `hsla(${this.color}, 90%, 70%, 1)`;
+    ctx.stroke();
+    ctx.shadowBlur = 0; 
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 28px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(this.text, 0, -5);
+    ctx.fillStyle = `hsla(${this.color}, 90%, 80%, 1)`;
+    ctx.font = 'bold 14px "Segoe UI", sans-serif';
+    ctx.fillText(this.pinyin, 0, 20);
+    ctx.restore();
+  }
+}
+
+class SliceHalf {
+  constructor(x, y, color, text, side, angle) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.text = text;
+    this.side = side; 
+    this.angle = angle;
+    this.vx = Math.cos(angle) * 5 + (side === 1 ? -3 : 3);
+    this.vy = Math.sin(angle) * 5 - 2;
+    this.gravity = 0.2;
+    this.rotation = 0;
+    this.vr = (Math.random() - 0.5) * 0.2;
+    this.life = 1.0;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.rotation += this.vr;
+    this.life -= 0.015;
+  }
+  draw(ctx) {
+    if (this.life <= 0) return;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.globalAlpha = this.life;
+    ctx.beginPath();
+    if (this.side === 1) {
+      ctx.arc(0, 0, 45, Math.PI/2, Math.PI*1.5);
+    } else {
+      ctx.arc(0, 0, 45, Math.PI*1.5, Math.PI/2);
+    }
+    ctx.fillStyle = `hsla(${this.color}, 80%, 60%, 0.4)`;
+    ctx.fill();
+    ctx.strokeStyle = `hsla(${this.color}, 90%, 70%, 1)`;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+class JuiceParticle {
+  constructor(x, y, color) {
+    this.x = x;
+    this.y = y;
+    this.vx = (Math.random() - 0.5) * 15;
+    this.vy = (Math.random() - 0.5) * 15 - 3;
+    this.color = color;
+    this.life = 1.0;
+    this.gravity = 0.3;
+    this.size = Math.random() * 4 + 2;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.life -= 0.03;
+  }
+  draw(ctx) {
+    if (this.life <= 0) return;
+    ctx.globalAlpha = this.life;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.color}, 90%, 70%, 1)`;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+const ninjaGame = {
+  running: false, gameOver: false, isPaused: false, score: 0, lives: 3,
+  fruits: [], halves: [], particles: [], trail: [],
+  spawnTimer: 0, spawnInterval: 1000, lastTime: 0, rafId: null,
+  lastSliceTime: 0, combo: 0, comboTimeout: 700, 
+  
+  reset() {
+    this.score = 0; this.lives = 3; this.fruits = []; this.halves = []; this.particles = []; this.trail = [];
+    this.combo = 0; this.running = true; this.gameOver = false; this.isPaused = false; this.spawnTimer = 0; this.lastTime = performance.now();
+    uiScore.textContent = '0'; uiLives.textContent = '3'; uiCombo.classList.remove('active');
+    uiOverlay.classList.add('hidden'); uiPauseOverlay.classList.add('hidden');
+    if (this.rafId) cancelAnimationFrame(this.rafId);
+    this.rafId = requestAnimationFrame(this.loop.bind(this));
+  },
+  pause() {
+    if (!this.running || this.isPaused) return;
+    this.isPaused = true; this.running = false;
+    if (this.rafId) cancelAnimationFrame(this.rafId);
+    uiPauseOverlay.classList.remove('hidden');
+  },
+  resume() {
+    if (this.isPaused) {
+      this.isPaused = false; this.running = true; this.lastTime = performance.now();
+      uiPauseOverlay.classList.add('hidden');
+      this.rafId = requestAnimationFrame(this.loop.bind(this));
+    }
+  },
+  loop(time) {
+    if (!this.running || this.isPaused) return;
+    let dt = time - this.lastTime;
+    this.lastTime = time;
+    this.update(dt);
+    this.draw();
+    this.rafId = requestAnimationFrame(this.loop.bind(this));
+  },
+  update(dt) {
+    this.spawnTimer -= dt;
+    if (this.spawnTimer <= 0 && this.fruits.length < 6) {
+      const w = GAME_WORDS[Math.floor(Math.random() * GAME_WORDS.length)];
+      this.fruits.push(new FruitItem(w));
+      this.spawnTimer = this.spawnInterval + (Math.random() * 500 - 250);
+    }
+    for (let i = this.fruits.length - 1; i >= 0; i--) {
+      const f = this.fruits[i]; f.update();
+      if (f.y > height + f.radius && f.vy > 0) {
+        this.fruits.splice(i, 1); this.loseLife();
+      }
+    }
+    for (let i = this.halves.length - 1; i >= 0; i--) {
+      const h = this.halves[i]; h.update();
+      if (h.life <= 0) this.halves.splice(i, 1);
+    }
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const p = this.particles[i]; p.update();
+      if (p.life <= 0) this.particles.splice(i, 1);
+    }
+    if (this.trail.length > 0) {
+      for (let i = this.trail.length - 1; i >= 0; i--) {
+        this.trail[i].life -= dt * 0.003;
+        if (this.trail[i].life <= 0) this.trail.splice(i, 1);
+      }
+    }
+    if (this.combo > 0 && performance.now() - this.lastSliceTime > this.comboTimeout) {
+      this.combo = 0; uiCombo.classList.remove('active');
+    }
+  },
+  draw() {
+    ctxGame.clearRect(0, 0, width, height);
+    if (this.trail.length > 1) {
+      ctxGame.beginPath();
+      ctxGame.moveTo(this.trail[0].x, this.trail[0].y);
+      for (let i = 1; i < this.trail.length; i++) ctxGame.lineTo(this.trail[i].x, this.trail[i].y);
+      ctxGame.strokeStyle = 'rgba(255, 255, 255, 0.8)'; ctxGame.lineWidth = 6;
+      ctxGame.lineCap = 'round'; ctxGame.lineJoin = 'round';
+      ctxGame.shadowBlur = 15; ctxGame.shadowColor = '#fff';
+      ctxGame.stroke(); ctxGame.shadowBlur = 0;
+      ctxGame.strokeStyle = 'rgba(200, 240, 255, 1)'; ctxGame.lineWidth = 2; ctxGame.stroke();
+    }
+    this.fruits.forEach(f => f.draw(ctxGame));
+    this.halves.forEach(h => h.draw(ctxGame));
+    this.particles.forEach(p => p.draw(ctxGame));
+  },
+  loseLife() {
+    if (!this.running || this.isPaused) return;
+    this.lives--; uiLives.textContent = this.lives; sfxMiss();
+    canvasGame.style.boxShadow = 'inset 0 0 50px rgba(255,0,0,0.5)';
+    setTimeout(() => canvasGame.style.boxShadow = 'none', 300);
+    if (this.lives <= 0) {
+      this.gameOver = true; this.running = false;
+      document.getElementById('ui-title').textContent = 'Game Over!';
+      document.getElementById('ui-desc').innerHTML = `Điểm của bạn: <b>${this.score}</b>`;
+      uiOverlay.classList.remove('hidden');
+    }
+  },
+  checkSlice(x1, y1, x2, y2) {
+    if (!this.running || this.isPaused) return;
+    const dist = Math.hypot(x2 - x1, y2 - y1);
+    const steps = Math.max(1, Math.ceil(dist / 10)); 
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const cx = x1 + (x2 - x1) * t;
+      const cy = y1 + (y2 - y1) * t;
+      for (let j = this.fruits.length - 1; j >= 0; j--) {
+        const f = this.fruits[j];
+        if (Math.hypot(cx - f.x, cy - f.y) < f.radius) {
+          this.sliceFruit(f, Math.atan2(y2 - y1, x2 - x1));
+          this.fruits.splice(j, 1);
+        }
+      }
+    }
+  },
+  sliceFruit(f, angle) {
+    sfxSliceSound(); speak(f.text);
+    const now = performance.now();
+    if (now - this.lastSliceTime < this.comboTimeout) this.combo++; else this.combo = 1;
+    this.lastSliceTime = now;
+    const points = this.combo > 1 ? 10 * this.combo : 10;
+    this.score += points; uiScore.textContent = this.score;
+    if (this.combo > 1) {
+      uiCombo.textContent = `COMBO x${this.combo}!`; uiCombo.classList.add('active');
+      uiCombo.style.animation = 'none'; uiCombo.offsetHeight; uiCombo.style.animation = null; 
+    }
+    this.halves.push(new SliceHalf(f.x, f.y, f.color, f.text, 1, angle));
+    this.halves.push(new SliceHalf(f.x, f.y, f.color, f.text, 2, angle));
+    for (let i = 0; i < 15; i++) this.particles.push(new JuiceParticle(f.x, f.y, f.color));
+  }
+};
+
+let isPointerDown = false;
+let lastPointerPos = null;
+function handlePointerMove(e) {
+  if (!ninjaGame.running || ninjaGame.isPaused) return;
+  const rect = canvasGame.getBoundingClientRect();
+  let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  const x = clientX - rect.left; const y = clientY - rect.top;
+  if (lastPointerPos) {
+    if (isPointerDown || e.type === 'mousemove') {
+      ninjaGame.checkSlice(lastPointerPos.x, lastPointerPos.y, x, y);
+      ninjaGame.trail.push({ x, y, life: 1.0 });
+      if (ninjaGame.trail.length > 20) ninjaGame.trail.shift();
+    }
+  }
+  lastPointerPos = { x, y };
+}
+canvasGame.addEventListener('mousedown', () => { isPointerDown = true; lastPointerPos = null; });
+canvasGame.addEventListener('mouseup', () => { isPointerDown = false; lastPointerPos = null; });
+canvasGame.addEventListener('mouseleave', () => { isPointerDown = false; lastPointerPos = null; });
+canvasGame.addEventListener('mousemove', handlePointerMove);
+canvasGame.addEventListener('touchstart', (e) => { e.preventDefault(); isPointerDown = true; lastPointerPos = null; handlePointerMove(e); }, {passive: false});
+canvasGame.addEventListener('touchmove', (e) => { e.preventDefault(); handlePointerMove(e); }, {passive: false});
+canvasGame.addEventListener('touchend', (e) => { e.preventDefault(); isPointerDown = false; lastPointerPos = null; }, {passive: false});
+
+uiPauseBtn.addEventListener('click', () => { ninjaGame.pause(); sfxClick(); });
+uiResume.addEventListener('click', () => { ninjaGame.resume(); sfxClick(); });
+uiRestart.addEventListener('click', () => { resizeCanvas(); ninjaGame.reset(); sfxClick(); });
+ninjaGame.gameOver = true;
+
+
+/* ===== MEMORY GAME LOGIC ===== */
+let memFirstCard, memSecondCard, memLockBoard = false, memMatches = 0;
+
+function initMemoryGame() {
+  const board = document.getElementById('memBoard');
+  board.innerHTML = '';
+  document.getElementById('mem-overlay').classList.add('hidden');
+  memMatches = 0;
+  
+  // Lấy ngẫu nhiên 8 từ
+  const selected = [...GAME_WORDS].sort(() => 0.5 - Math.random()).slice(0, 8);
+  let cards = [];
+  selected.forEach(w => {
+    cards.push({ id: w.h, type: 'hanzi', text: w.h });
+    cards.push({ id: w.h, type: 'pinyin', text: w.p });
+  });
+  cards.sort(() => 0.5 - Math.random());
+
+  cards.forEach(c => {
+    const cardEl = document.createElement('div');
+    cardEl.className = 'mem-card';
+    cardEl.dataset.id = c.id;
+    cardEl.innerHTML = `
+      <div class="mem-inner">
+        <div class="mem-front">?</div>
+        <div class="mem-back">
+          <span class="${c.type === 'hanzi' ? 'cn' : 'py'}">${c.text}</span>
+        </div>
+      </div>`;
+    cardEl.addEventListener('click', flipCard);
+    board.appendChild(cardEl);
+  });
+}
+
+function flipCard() {
+  if (memLockBoard) return;
+  if (this === memFirstCard) return;
+  
+  this.classList.add('flipped');
+  if (!memFirstCard) {
+    memFirstCard = this;
+    return;
+  }
+  memSecondCard = this;
+  checkForMatch();
+}
+
+function checkForMatch() {
+  const isMatch = memFirstCard.dataset.id === memSecondCard.dataset.id;
+  if (isMatch) {
+    disableCards();
+  } else {
+    unflipCards();
+  }
+}
+
+function disableCards() {
+  memFirstCard.classList.add('matched');
+  memSecondCard.classList.add('matched');
+  memMatches++;
+  sfxClick();
+  if (memMatches === 8) {
+    setTimeout(() => {
+      document.getElementById('mem-overlay').classList.remove('hidden');
+    }, 500);
+  }
+  resetBoard();
+}
+
+function unflipCards() {
+  memLockBoard = true;
+  setTimeout(() => {
+    memFirstCard.classList.remove('flipped');
+    memSecondCard.classList.remove('flipped');
+    resetBoard();
+  }, 1000);
+}
+
+function resetBoard() {
+  [memFirstCard, memSecondCard, memLockBoard] = [null, null, false];
+}
+
+document.getElementById('mem-restart').addEventListener('click', () => {
+  sfxClick();
+  initMemoryGame();
+});
+
+
+/* =========================================================
+   8. BÀI TẬP 1: ĐIỀN TỪ (Có Pinyin đầy đủ)
+   ========================================================= */
+const EX1_DATA = [
+  { text: '下午我去图书馆，你去 ___ 去？', py: 'Xiàwǔ wǒ qù túshūguǎn, nǐ qù ___ qù?', ans: '不', opt: ['不', '没', '吗', '呢'] },
+  { text: '我要去银行换 ___ 。', py: 'Wǒ yào qù yínháng huàn ___ .', ans: '钱', opt: ['钱', '书', '水果', '电视'] },
+  { text: '您换 ___ 钱？', py: 'Nín huàn ___ qián?', ans: '什么', opt: ['什么', '怎么', '哪', '多少'] },
+  { text: '请等一 ___ 。', py: 'Qǐng děng yí ___ .', ans: '会儿', opt: ['会儿', '点', '下', '些'] },
+  { text: '给您钱。请 ___ 数。', py: 'Gěi nín qián. Qǐng ___ shu.', ans: '数数', opt: ['数数', '换换', '等等', '看看'] }
+];
+
+const ex1Bank = document.getElementById('ex1Bank');
+const ex1List = document.getElementById('ex1List');
+const ex1Score = document.getElementById('ex1Score');
+let ex1Total = EX1_DATA.length;
+document.getElementById('ex1Total').textContent = ex1Total;
+
+function renderEx1() {
+  const allOpts = new Set();
+  EX1_DATA.forEach(item => item.opt.forEach(o => allOpts.add(o)));
+  ex1Bank.innerHTML = Array.from(allOpts).map(o => `<span class="bank-chip"><span class="cn">${o}</span></span>`).join('');
+
+  ex1List.innerHTML = EX1_DATA.map((item, idx) => {
+    const parts = item.text.split('___');
+    const selectHtml = `<select class="fill-select" data-idx="${idx}" data-answer="${item.ans}"><option value="">-- chọn --</option>${item.opt.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
+    return `<div class="fill-item" data-idx="${idx}">
+      <span class="fill-num">${idx + 1}</span>
+      <div class="fill-body">
+        <div class="cn">${parts[0]} ${selectHtml} ${parts[1]}</div>
+        <div class="py">${item.py}</div>
+      </div>
+    </div>`;
+  }).join('');
+  
+  ex1Score.textContent = '0';
+  document.getElementById('ex1Result').textContent = '';
+}
+
+document.getElementById('ex1Check').addEventListener('click', () => {
+  sfxClick();
+  let correct = 0;
+  ex1List.querySelectorAll('.fill-item').forEach(item => {
+    const sel = item.querySelector('select');
+    if (sel.value === sel.dataset.answer) {
+      sel.classList.add('ok'); sel.classList.remove('no');
+      item.classList.add('correct'); item.classList.remove('wrong');
+      correct++;
+    } else {
+      sel.classList.add('no'); sel.classList.remove('ok');
+      item.classList.add('wrong'); item.classList.remove('correct');
+    }
+  });
+  ex1Score.textContent = correct;
+  const res = document.getElementById('ex1Result');
+  if (correct === ex1Total) {
+    res.textContent = '🎉 Tuyệt vời! Bạn đã làm đúng hết!';
+    res.style.color = '#2e8b6f';
+  } else {
+    res.textContent = `Bạn đúng ${correct}/${ex1Total} câu. Cố lên!`;
+    res.style.color = '#ff7fa3';
+  }
+});
+
+document.getElementById('ex1Reset').addEventListener('click', () => { sfxClick(); renderEx1(); });
+renderEx1();
+
+/* =========================================================
+   9. BÀI TẬP 2: TRẮC NGHIỆM (Có Pinyin đầy đủ)
+   ========================================================= */
+const EX2_DATA = [
+  { q: '你去 ___ 去图书馆？', py: 'Nǐ qù ___ qù túshūguǎn?', opts: [{t:'不', p:'bú'}, {t:'没', p:'méi'}, {t:'吗', p:'ma'}, {t:'的', p:'de'}], ans: 0 },
+  { q: '我想换二百 ___ 。', py: 'Wǒ xiǎng huàn èrbǎi ___ .', opts: [{t:'美元', p:'měiyuán'}, {t:'人民币', p:'rénmínbì'}, {t:'港币', p:'gǎngbì'}, {t:'欧元', p:'ōuyuán'}], ans: 0 },
+  { q: '请等一 ___ 。', py: 'Qǐng děng yí ___ .', opts: [{t:'下', p:'xià'}, {t:'会儿', p:'huìr'}, {t:'点', p:'diǎn'}, {t:'些', p:'xiē'}], ans: 1 },
+  { q: '他要去银行 ___ 钱。', py: 'Tā yào qù yínháng ___ qián.', opts: [{t:'换', p:'huàn'}, {t:'数', p:'shǔ'}, {t:'等', p:'děng'}, {t:'去', p:'qù'}], ans: 0 },
+  { q: '营业员说：请 ___ 。', py: 'Yíngyèyuán shuō: Qǐng ___ .', opts: [{t:'数数', p:'shǔshu'}, {t:'换钱', p:'huànqián'}, {t:'休息', p:'xiūxi'}, {t:'看看', p:'kànkàn'}], ans: 0 }
+];
+
+const ex2List = document.getElementById('ex2List');
+const ex2Score = document.getElementById('ex2Score');
+let ex2Total = EX2_DATA.length;
+document.getElementById('ex2Total').textContent = ex2Total;
+let ex2Answered = {};
+
+function renderEx2() {
+  ex2List.innerHTML = EX2_DATA.map((item, idx) => {
+    const optsHtml = item.opts.map((o, i) => `<button class="mc-option" data-idx="${idx}" data-val="${i}"><span>${String.fromCharCode(65+i)}. ${o.t}</span><span class="py">${o.p}</span></button>`).join('');
+    return `<div class="mc-item" data-idx="${idx}">
+      <div class="mc-q"><b>${idx + 1}.</b> ${item.q}</div>
+      <div class="mc-q-py">${item.py}</div>
+      <div class="mc-options">${optsHtml}</div>
+    </div>`;
+  }).join('');
+  
+  ex2Score.textContent = '0';
+  document.getElementById('ex2Result').textContent = '';
+  ex2Answered = {};
+
+  ex2List.querySelectorAll('.mc-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx);
+      const val = parseInt(btn.dataset.val);
+      if (ex2Answered[idx] !== undefined) return;
+      ex2Answered[idx] = val;
+      
+      const item = EX2_DATA[idx];
+      const itemEl = ex2List.querySelector(`.mc-item[data-idx="${idx}"]`);
+      const allOpts = itemEl.querySelectorAll('.mc-option');
+      
+      allOpts.forEach(o => {
+        o.disabled = true;
+        const ov = parseInt(o.dataset.val);
+        if (ov === item.ans) o.classList.add('ok');
+        else if (ov === val && val !== item.ans) o.classList.add('no');
+        else o.classList.add('dim');
+      });
+      
+      if (val === item.ans) itemEl.classList.add('correct');
+      else itemEl.classList.add('wrong');
+      
+      let correctCount = 0;
+      Object.keys(ex2Answered).forEach(k => { if (ex2Answered[k] === EX2_DATA[k].ans) correctCount++; });
+      ex2Score.textContent = correctCount;
+      
+      if (Object.keys(ex2Answered).length === ex2Total) {
+        const res = document.getElementById('ex2Result');
+        if (correctCount === ex2Total) {
+          res.textContent = '🏆 Xuất sắc! Bạn trả lời đúng tất cả!';
+          res.style.color = '#2e8b6f';
+        } else {
+          res.textContent = `Bạn đúng ${correctCount}/${ex2Total} câu.`;
+          res.style.color = '#ff7fa3';
+        }
+      }
+    });
+  });
+}
+
+document.getElementById('ex2Reset').addEventListener('click', () => { sfxClick(); renderEx2(); });
+renderEx2();
+
+/* =========================================================
+   10. BÀI TẬP 3: SẮP XẾP CÂU (Có Pinyin đầy đủ)
+   ========================================================= */
+const EX3_DATA = [
+  { 
+    words: [{t:'下午', p:'Xiàwǔ'}, {t:'我', p:'wǒ'}, {t:'去', p:'qù'}, {t:'图书馆', p:'túshūguǎn'}, {t:'。', p:''}], 
+    ans: ['下午我去图书馆。'], 
+    hint: 'Buổi chiều tôi đi thư viện.' 
+  },
+  { 
+    words: [{t:'我', p:'Wǒ'}, {t:'换', p:'huàn'}, {t:'二百', p:'èrbǎi'}, {t:'美元', p:'měiyuán'}, {t:'。', p:''}], 
+    ans: ['我换二百美元。'], 
+    hint: 'Tôi đổi hai trăm đô la Mỹ.' 
+  },
+  { 
+    words: [{t:'请', p:'Qǐng'}, {t:'等', p:'děng'}, {t:'一会儿', p:'yíhuìr'}, {t:'。', p:''}], 
+    ans: ['请等一会儿。'], 
+    hint: 'Xin đợi một lát.' 
+  },
+  { 
+    words: [{t:'我', p:'Wǒ'}, {t:'要', p:'yào'}, {t:'去', p:'qù'}, {t:'银行', p:'yínháng'}, {t:'换钱', p:'huànqián'}], 
+    ans: ['我要去银行换钱'], 
+    hint: 'Tôi muốn đi ngân hàng đổi tiền' 
+  },
+  { 
+    words: [{t:'你', p:'Nǐ'}, {t:'去', p:'qù'}, {t:'不', p:'bú'}, {t:'去', p:'qù'}, {t:'图书馆', p:'túshūguǎn'}, {t:'？', p:''}], 
+    ans: ['你去不去图书馆？'], 
+    hint: 'Bạn có đi thư viện không?' 
+  }
+];
+
+const ex3List = document.getElementById('ex3List');
+const ex3Score = document.getElementById('ex3Score');
+let ex3Total = EX3_DATA.length;
+document.getElementById('ex3Total').textContent = ex3Total;
+let ex3State = [];
+
+function renderEx3() {
+  ex3State = EX3_DATA.map(item => ({
+    ans: item.ans,
+    selected: [],
+    pool: shuffleArray([...item.words]) // Sử dụng Fisher-Yates để đảm bảo hoàn toàn ngẫu nhiên
+  }));
+
+  ex3List.innerHTML = EX3_DATA.map((item, idx) => {
+    const poolHtml = ex3State[idx].pool.map((w, i) => `<div class="order-word" data-idx="${idx}" data-word="${w.t}" data-pos="${i}"><span>${w.t}</span><span class="py">${w.p}</span></div>`).join('');
+    return `<div class="order-item" data-idx="${idx}">
+      <div class="order-q">${item.hint}</div>
+      <div class="order-ans-area" id="order-ans-${idx}"></div>
+      <div class="order-pool" id="order-pool-${idx}">${poolHtml}</div>
+    </div>`;
+  }).join('');
+  
+  ex3Score.textContent = '0';
+  document.getElementById('ex3Result').textContent = '';
+
+  // Click logic
+  ex3List.querySelectorAll('.order-word').forEach(wordEl => {
+    wordEl.addEventListener('click', () => {
+      sfxClick();
+      const idx = parseInt(wordEl.dataset.idx);
+      const word = wordEl.dataset.word;
+      
+      wordEl.classList.add('used');
+      ex3State[idx].selected.push(word);
+      
+      const ansArea = document.getElementById(`order-ans-${idx}`);
+      const span = document.createElement('div');
+      span.className = 'order-word';
+      span.innerHTML = wordEl.innerHTML;
+      span.style.background = '#eafaf4';
+      span.style.borderColor = '#7fdcc0';
+      
+      span.addEventListener('click', () => {
+        sfxClick();
+        span.remove();
+        ex3State[idx].selected = ex3State[idx].selected.filter(w => w !== word);
+        const allPool = document.querySelectorAll(`.order-word[data-idx="${idx}"][data-word="${word}"]`);
+        for(let el of allPool) { if(el.classList.contains('used')) { el.classList.remove('used'); break; } }
+      });
+      ansArea.appendChild(span);
+    });
+  });
+}
+
+document.getElementById('ex3Check').addEventListener('click', () => {
+  sfxClick();
+  let correct = 0;
+  ex3State.forEach((state, idx) => {
+    const itemEl = ex3List.querySelector(`.order-item[data-idx="${idx}"]`);
+    const userAns = state.selected.join('');
+    
+    if (state.ans.includes(userAns)) {
+      itemEl.classList.add('correct');
+      itemEl.classList.remove('wrong');
+      correct++;
+    } else {
+      itemEl.classList.add('wrong');
+      itemEl.classList.remove('correct');
+    }
+  });
+  
+  ex3Score.textContent = correct;
+  const res = document.getElementById('ex3Result');
+  if (correct === ex3Total) {
+    res.textContent = '🎉 Tuyệt vời! Bạn đã sắp xếp đúng hết!';
+    res.style.color = '#2e8b6f';
+  } else {
+    res.textContent = `Bạn đúng ${correct}/${ex3Total} câu. Cố lên!`;
+    res.style.color = '#ff7fa3';
+  }
+});
+
+document.getElementById('ex3Reset').addEventListener('click', () => { sfxClick(); renderEx3(); });
+renderEx3();
+
+</script>
+</body>
+</html>

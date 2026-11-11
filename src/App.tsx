@@ -544,44 +544,63 @@ export default function App() {
 
   /* Load and sort voices - Choose single best voice for entire dialogue */
   const loadAvailableVoices = useCallback(() => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    const all = window.speechSynthesis.getVoices() || [];
-    
-    // Filter Mandarin Chinese voices
-    const zh = all.filter(v => {
-      const l = (v.lang || '').toLowerCase().replace('_', '-');
-      const n = (v.name || '').toLowerCase();
-      const isCanto = ['sinji', 'cantonese', 'yue', 'zh-hk', 'zh_hk', 'hong kong'].some(b => l.includes(b) || n.includes(b));
-      return !isCanto && (l.includes('zh') || n.includes('chinese') || n.includes('mandarin') || l.includes('cmn'));
-    });
+    try {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+      const synth = window.speechSynthesis;
+      if (!synth || typeof synth.getVoices !== 'function') return;
+      const all = synth.getVoices() || [];
+      
+      // Filter Mandarin Chinese voices
+      const zh = all.filter(v => {
+        const l = (v.lang || '').toLowerCase().replace('_', '-');
+        const n = (v.name || '').toLowerCase();
+        const isCanto = ['sinji', 'cantonese', 'yue', 'zh-hk', 'zh_hk', 'hong kong'].some(b => l.includes(b) || n.includes(b));
+        return !isCanto && (l.includes('zh') || n.includes('chinese') || n.includes('mandarin') || l.includes('cmn'));
+      });
 
-    setChineseVoices(zh);
+      setChineseVoices(zh);
 
-    // Pick single best natural voice for entire dialogue
-    const preferred = zh.find(v => {
-      const n = v.name.toLowerCase();
-      return ['xiaoxiao', 'google 普通话', 'ting-ting', 'tingting', 'huihui', 'yaoyao', 'yunxi', 'kangkang'].some(k => n.includes(k));
-    });
+      // Pick single best natural voice for entire dialogue
+      const preferred = zh.find(v => {
+        const n = v.name.toLowerCase();
+        return ['xiaoxiao', 'google 普通话', 'ting-ting', 'tingting', 'huihui', 'yaoyao', 'yunxi', 'kangkang'].some(k => n.includes(k));
+      });
 
-    if (preferred) {
-      setDialogueVoiceName(preferred.name);
-    } else if (zh.length > 0) {
-      setDialogueVoiceName(zh[0].name);
+      if (preferred) {
+        setDialogueVoiceName(preferred.name);
+      } else if (zh.length > 0) {
+        setDialogueVoiceName(zh[0].name);
+      }
+    } catch {
+      // SpeechSynthesis may be blocked in some browser security contexts
     }
   }, []);
 
   useEffect(() => {
-    loadAvailableVoices();
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.onvoiceschanged = loadAvailableVoices;
+    try {
+      loadAvailableVoices();
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadAvailableVoices;
+      }
+    } catch {
+      // ignore
     }
+    return () => {
+      try {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.speechSynthesis) {
+          window.speechSynthesis.onvoiceschanged = null;
+        }
+      } catch {}
+    };
   }, [loadAvailableVoices]);
 
   /* Stop all ongoing speech and audio */
   const stopAllAudio = useCallback(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    } catch {}
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;

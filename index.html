@@ -10,31 +10,42 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <script>
+      // Ensure trailing slash for GitHub Pages (e.g. user.github.io/repo -> user.github.io/repo/)
+      // This prevents 404 errors when resolving relative assets like ./assets/xxx.js
+      (function() {
+        var path = window.location.pathname;
+        if (path && !path.endsWith('/') && !path.split('/').pop().includes('.')) {
+          window.location.replace(window.location.origin + path + '/' + window.location.search + window.location.hash);
+        }
+      })();
+
       // Polyfill setter for window.fetch to prevent TypeError from browser extensions
       try {
         var _fetchRef = window.fetch;
-        Object.defineProperty(window, 'fetch', {
-          get: function () {
-            return _fetchRef;
-          },
-          set: function (fn) {
-            _fetchRef = fn;
-          },
-          configurable: true,
-          enumerable: true,
-        });
+        if (_fetchRef) {
+          Object.defineProperty(window, 'fetch', {
+            get: function () {
+              return _fetchRef;
+            },
+            set: function (fn) {
+              _fetchRef = fn;
+            },
+            configurable: true,
+            enumerable: true,
+          });
+        }
       } catch (err) {}
 
       // Prevent unhandled errors thrown by Chrome extensions from breaking the app
       window.addEventListener('error', function (e) {
-        if (e.filename && e.filename.indexOf('chrome-extension://') !== -1) {
+        if (e && e.filename && e.filename.indexOf('chrome-extension://') !== -1) {
           e.preventDefault();
           e.stopImmediatePropagation();
         }
       }, true);
     </script>
     <!-- HanziWriter CDN for Chinese character stroke animation -->
-    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">

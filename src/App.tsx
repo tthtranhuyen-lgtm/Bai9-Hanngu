@@ -138,8 +138,9 @@ const DIALOGUE: DialogueLine[] = [
   { role: 'B', roleName: 'Tôi (B)', zh: '对。谢谢！', py: 'Duì. Xièxie!', vn: 'Đúng rồi. Cảm ơn!', gender: 'male' },
   { role: 'C', roleName: 'Giao dịch viên (C)', zh: '不客气！', py: 'Bú kèqi!', vn: 'Không có gì!', gender: 'female' }
 ];
-
 /* =========================================================
+   AUDIO CONFIGURATION
+   ========================================================= */
 // Helper tương thích tự động đường dẫn âm thanh tĩnh trên GitHub Pages và mọi thư mục con
 const toAssetUrl = (path: string): string => {
   if (!path) return '';
@@ -183,7 +184,7 @@ const DIALOGUE_AUDIO_MAP: Record<string, string> = {
 };
 
 // Mốc thời gian (giây) từng câu trên băng gốc 09-1 để highlight karaoke
-const DIALOGUE_TIMESTAMP_LIST = [
+const DIALOGUE_TIMESTAMP_LIST: { start: number; end: number }[] = [
   { start: 19.5, end: 22.4 }, // 下午我去图书馆，你去不去？
   { start: 22.7, end: 29.3 }, // 我不去，我要去银行换钱。
   { start: 31.3, end: 33.8 }, // 小姐，我换钱。
@@ -243,7 +244,7 @@ const VOCAB_AUDIO_MAP: Record<string, string> = {
 };
 
 // Mốc thời gian (giây) từng từ trên băng gốc 09-2 để highlight karaoke
-const VOCAB_TIMESTAMP_LIST = [
+const VOCAB_TIMESTAMP_LIST: { start: number; end: number }[] = [
   { start: 6.4, end: 7.8 },   // 下午
   { start: 8.6, end: 10.0 },  // 上午
   { start: 10.9, end: 12.6 }, // 图书馆

@@ -1,0 +1,6 @@
+{
+  "name": "Bài 9 · 换钱 | Ôn tập tiếng Trung",
+  "description": "Ứng dụng học và ôn tập tiếng Trung Bài 9: Đổi tiền (换钱), đầy đủ từ vựng, bài khóa, phát âm chuẩn xác, luyện viết chữ Hán và trò chơi tương tác.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

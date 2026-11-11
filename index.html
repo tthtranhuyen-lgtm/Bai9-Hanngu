@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bài 9 · 换钱 | Ôn tập tiếng Trung</title>
+    <meta name="description" content="Ứng dụng học và ôn tập tiếng Trung Bài 9: Đổi tiền (换钱), đầy đủ từ vựng, bài khóa, phát âm chuẩn xác, luyện viết chữ Hán và trò chơi tương tác." />
+    <meta property="og:title" content="Bài 9 · 换钱 | Ôn tập tiếng Trung" />
+    <meta property="og:description" content="Ứng dụng học và ôn tập tiếng Trung Bài 9: Đổi tiền (换钱), đầy đủ từ vựng, bài khóa, phát âm chuẩn xác, luyện viết chữ Hán và trò chơi tương tác." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Polyfill setter for window.fetch to prevent TypeError from browser extensions
+      try {
+        var _fetchRef = window.fetch;
+        Object.defineProperty(window, 'fetch', {
+          get: function () {
+            return _fetchRef;
+          },
+          set: function (fn) {
+            _fetchRef = fn;
+          },
+          configurable: true,
+          enumerable: true,
+        });
+      } catch (err) {}
+
+      // Prevent unhandled errors thrown by Chrome extensions from breaking the app
+      window.addEventListener('error', function (e) {
+        if (e.filename && e.filename.indexOf('chrome-extension://') !== -1) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      }, true);
+    </script>
+    <!-- HanziWriter CDN for Chinese character stroke animation -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
